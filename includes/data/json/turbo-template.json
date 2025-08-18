@@ -1,0 +1,136 @@
+{
+  "content": [
+    {
+      "id": "6da8abad",
+      "settings": {
+        "flex_direction": "row",
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "column": "0",
+          "row": "0"
+        }
+      },
+      "elements": [
+        {
+          "id": "4826d11b",
+          "settings": {
+            "flex_direction": "column",
+            "content_width": "full",
+            "width": {
+              "unit": "%",
+              "size": 33.3
+            }
+          },
+          "elements": [
+            {
+              "id": "1678b787",
+              "settings": {
+                "original_image": {
+                  "url": "https://demo.turbo-addons.com/wp-content/uploads/2025/05/Rectangle-13.png",
+                  "id": 19081,
+                  "size": "",
+                  "alt": "",
+                  "source": "library"
+                },
+                "img_compare_original_title": "Original",
+                "modified_image": {
+                  "url": "https://demo.turbo-addons.com/wp-content/uploads/2025/05/indoor-shot-positive-bearded-male-casual-red-t-shirt-points-with-index-finger-aside-1.png",
+                  "id": 19062,
+                  "size": "",
+                  "alt": "",
+                  "source": "library"
+                },
+                "img_compare_modified_title": "Modified"
+              },
+              "elements": [],
+              "isInner": false,
+              "widgetType": "trad-image-compare",
+              "elType": "widget"
+            }
+          ],
+          "isInner": true,
+          "elType": "container"
+        },
+        {
+          "id": "64959b93",
+          "settings": {
+            "flex_direction": "column",
+            "content_width": "full",
+            "width": {
+              "unit": "%",
+              "size": 33.3
+            }
+          },
+          "elements": [
+            {
+              "id": "1e20f84a",
+              "settings": {
+                "image": {
+                  "url": "https://demo.turbo-addons.com/wp-content/uploads/2025/05/depositphotos_504664086-stock-photo-photo-of-rich-millionaire-guy.webp",
+                  "id": 19393,
+                  "size": "",
+                  "alt": "",
+                  "source": "library"
+                },
+                "trad-image_icon_card_title": "Research",
+                "image_icon_card_icon": {
+                  "value": "fas fa-male",
+                  "library": "fa-solid"
+                }
+              },
+              "elements": [],
+              "isInner": false,
+              "widgetType": "turbo-addons-image-icon-card",
+              "elType": "widget"
+            }
+          ],
+          "isInner": true,
+          "elType": "container"
+        },
+        {
+          "id": "2ce277a2",
+          "settings": {
+            "flex_direction": "column",
+            "content_width": "full",
+            "width": {
+              "unit": "%",
+              "size": 33.3
+            }
+          },
+          "elements": [
+            {
+              "id": "6be13f3d",
+              "settings": {
+                "image": {
+                  "url": "https://demo.turbo-addons.com/wp-content/uploads/2025/05/depositphotos_504664086-stock-photo-photo-of-rich-millionaire-guy.webp",
+                  "id": 19393,
+                  "size": "",
+                  "alt": "",
+                  "source": "library"
+                },
+                "card_title": "Default title",
+                "item_description": "Default description",
+                "top_badge_text": "On Sale!",
+                "bottom_badge_text": "$19.99",
+                "button_text": "Buy Now"
+              },
+              "elements": [],
+              "isInner": false,
+              "widgetType": "trad-preview-card",
+              "elType": "widget"
+            }
+          ],
+          "isInner": true,
+          "elType": "container"
+        }
+      ],
+      "isInner": false,
+      "elType": "container"
+    }
+  ],
+  "page_settings": [],
+  "version": "0.4",
+  "title": "dummy-test",
+  "type": "page"
+}

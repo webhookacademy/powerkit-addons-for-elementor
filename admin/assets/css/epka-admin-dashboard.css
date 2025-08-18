@@ -1,0 +1,9 @@
+.epka-hero{background:#f6f7f7;border:1px solid #e2e4e7;border-radius:12px;padding:24px;margin-bottom:20px}
+.epka-hero__content h1{margin:0 0 6px}
+.epka-hero__actions .button{margin-right:8px; margin-top: 10px;}
+.epka-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.epka-card{display:block;border:1px solid #e2e4e7;border-radius:10px;padding:14px;background:#fff;cursor:pointer}
+.epka-card input{margin-right:8px;transform:translateY(2px)}
+.epka-card__title{font-weight:600;display:block;margin-bottom:4px}
+.epka-card__desc{display:block;color:#50575e;font-size:12px}
+.epka-widget-save-btn {margin-top:20px !important}

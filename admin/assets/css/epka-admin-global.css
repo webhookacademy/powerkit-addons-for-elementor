@@ -1,0 +1,14 @@
+/* Only affect PowerKit top-level menu icon */
+#adminmenu #toplevel_page_powerkit-dashboard .wp-menu-image img,
+#adminmenu #toplevel_page_powerkit-dashboard .wp-menu-image svg {
+    padding: 9px 0 0 !important;
+    opacity: 1;
+    width: 18px !important;
+    height: auto !important;
+    max-width: none !important; /* core sometimes sets max-width:20px */
+}
+
+/* Optional: keep the menu row height aligned */
+#adminmenu #toplevel_page_powerkit-dashboard .wp-has-submenu > a {
+    line-height: 20px;
+}

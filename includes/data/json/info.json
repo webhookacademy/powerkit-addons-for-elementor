@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Home Page",
+    "id": "turbo-template",
+    "theme": "turbo-template",
+    "category": "Single Landing Page",
+    "thumbnail": "1",
+    "requires": ["free"],
+    "contributor": ["PowerKit"],
+    "separator": "Single Landing Page"
+  },
+  {
+    "name": "About Page",
+    "id": "turbo-template",
+    "theme": "turbo-sales",
+    "category": "turbo-sales",
+    "thumbnail": "2",
+    "requires": ["free"],
+    "contributor": ["PowerKit"],
+    "separator": "Sales"
+  },
+    {
+    "name": "Product Section",
+    "id": "burger-sales",
+    "theme": "street-food",
+    "category": "street-food",
+    "thumbnail": "3",
+    "requires": ["free"],
+    "contributor": ["PowerKit"],
+    "separator": "Fast Food"
+  }
+]
