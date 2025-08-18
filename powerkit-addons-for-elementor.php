@@ -93,6 +93,7 @@ final class EPKA_Elementor_PowerKit_Addons {
 	}
 
 	public function epka_enqueue_admin_assets() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : '';
 		if ( $page !== 'powerkit-dashboard' ) {
 			return;
@@ -193,7 +194,7 @@ final class EPKA_Elementor_PowerKit_Addons {
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['activate'] ) ) {
 			unset( $_GET['activate'] );
 		}
@@ -204,6 +205,7 @@ final class EPKA_Elementor_PowerKit_Addons {
 
 		if ( $is_elementor_installed ) {
 			$message = sprintf(
+				/* translators: 1: Plugin name. 2: Elementor plugin name. */
 				__( '"%1$s" requires %2$s to be activated.', 'powerkit-addons-for-elementor' ),
 				'<strong>' . __( 'PowerKit Addons For Elementor', 'powerkit-addons-for-elementor' ) . '</strong>',
 				'<strong>' . __( 'Elementor', 'powerkit-addons-for-elementor' ) . '</strong>'
@@ -215,6 +217,7 @@ final class EPKA_Elementor_PowerKit_Addons {
 			);
 		} else {
 			$message = sprintf(
+				/* translators: 1: Plugin name. 2: Elementor plugin name. */
 				__( '"%1$s" requires %2$s to be installed.', 'powerkit-addons-for-elementor' ),
 				'<strong>' . __( 'PowerKit Addons For Elementor', 'powerkit-addons-for-elementor' ) . '</strong>',
 				'<strong>' . __( 'Elementor', 'powerkit-addons-for-elementor' ) . '</strong>'
@@ -235,15 +238,18 @@ final class EPKA_Elementor_PowerKit_Addons {
 		printf(
 			'<div class="notice notice-warning is-dismissible"><p>%1$s</p>%2$s</div>',
 			wp_kses_post( $message ),
-			$button
+			wp_kses_post( $button )
 		);
 	}
 
 	public function admin_notice_minimum_elementor_version() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['activate'] ) ) {
 			unset( $_GET['activate'] );
 		}
+		
 		$message = sprintf(
+			/* translators: 1: Plugin name. 2: Elementor. 3: Required Elementor version. */
 			__( '"%1$s" requires %2$s version %3$s or greater.', 'powerkit-addons-for-elementor' ),
 			'<strong>' . __( 'PowerKit Addons For Elementor', 'powerkit-addons-for-elementor' ) . '</strong>',
 			'<strong>' . __( 'Elementor', 'powerkit-addons-for-elementor' ) . '</strong>',
@@ -253,10 +259,13 @@ final class EPKA_Elementor_PowerKit_Addons {
 	}
 
 	public function admin_notice_minimum_php_version() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['activate'] ) ) {
 			unset( $_GET['activate'] );
 		}
+		
 		$message = sprintf(
+			/* translators: 1: Plugin name. 2: PHP. 3: Required PHP version. */
 			__( '"%1$s" requires %2$s version %3$s or greater.', 'powerkit-addons-for-elementor' ),
 			'<strong>' . __( 'PowerKit Addons For Elementor', 'powerkit-addons-for-elementor' ) . '</strong>',
 			'<strong>' . __( 'PHP', 'powerkit-addons-for-elementor' ) . '</strong>',
