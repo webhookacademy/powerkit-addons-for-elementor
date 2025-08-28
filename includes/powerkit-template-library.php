@@ -12,7 +12,7 @@ add_action( 'elementor/init', function () {
 		return;
 	}
 
-	class EPKA_Library_Source extends Source_Base {
+	class PKAE_Library_Source extends Source_Base {
 
 		public function __construct() {
 			parent::__construct();
@@ -31,9 +31,15 @@ add_action( 'elementor/init', function () {
 		public function export_template( $template_id ) {}
 
 		public function get_finalized_data() {
-			// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-			$filename = sanitize_file_name( $_POST['filename'] ?? '' );
-			$local_file = EPKA_ELEMENTOR_POWERKIT_ADDONS_PATH . '/includes/data/json/' . $filename;
+			 // Verify nonce
+			check_ajax_referer( 'pkae_nonce_action', 'security' );
+			// Check permission
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				wp_send_json_error( [ 'error' => 'Permission denied' ] );
+			}
+			// Sanitize filename
+    		$filename = isset( $_POST['filename'] ) ? sanitize_file_name( wp_unslash( $_POST['filename'] ) ) : '';
+			$local_file = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . '/includes/data/json/' . $filename;
 
 			if ( ! file_exists( $local_file ) ) {
 				wp_send_json_error([ 'error' => 'Template file not found: ' . $filename ]);
@@ -61,5 +67,5 @@ add_action( 'elementor/init', function () {
 		}
 	}
 
-	new EPKA_Library_Source();
+	new PKAE_Library_Source();
 });

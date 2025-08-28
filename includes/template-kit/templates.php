@@ -3,8 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 ?>
-<script type="text/template" id="tmpl-epka-elementor-templates-modal__header">
-	<div id="epka-elementor-template-library-header" class="elementor-templates-modal__header">
+<script type="text/template" id="tmpl-pkae-elementor-templates-modal__header">
+	<div id="pkae-elementor-template-library-header" class="elementor-templates-modal__header">
 		<div class="elementor-templates-modal__header__logo-area">
 			<div class="elementor-templates-modal__header__logo">
 				<span class="elementor-templates-modal__header__logo__icon-wrapper e-logo-wrapper">
@@ -14,10 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div class="epka-header-buttons">
-			<button type="button" class="epka-tab-btn epka-tab-active" data-type="all">ALL</button>
-			<button type="button" class="epka-tab-btn" data-type="template">Template</button>
-			<button type="button" class="epka-tab-btn" data-type="section">Section</button>
+		<div class="pkae-header-buttons">
+			<button type="button" class="pkae-tab-btn pkae-tab-active" data-type="all">ALL</button>
+			<button type="button" class="pkae-tab-btn" data-type="template">Template</button>
+			<button type="button" class="pkae-tab-btn" data-type="section">Section</button>
 		</div>
 
 		<div class="elementor-templates-modal__header__items-area">
@@ -27,8 +27,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </script>
-<script type="text/template" id="tmpl-epka-elementor-template-library-loading">
-	<div id="epka-elementor-template-library-loading">
+<script type="text/template" id="tmpl-pkae-elementor-template-library-loading">
+	<div id="pkae-elementor-template-library-loading">
 		<div class="elementor-loader-wrapper">
 			<div class="elementor-loader">
 				<div class="elementor-loader-boxes">
@@ -43,16 +43,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </script>
 <!-- Tools / Filter Template -->
-<script type="text/template" id="tmpl-epka-elementor-template-library-tools">
-	<div id="epka-elementor-template-library-toolbar">
-		<div id="epka-elementor-template-library-filter-toolbar-remote" class="elementor-template-library-filter-toolbar">				
+<script type="text/template" id="tmpl-pkae-elementor-template-library-tools">
+	<div id="pkae-elementor-template-library-toolbar">
+		<div id="pkae-elementor-template-library-filter-toolbar-remote" class="elementor-template-library-filter-toolbar">				
 			<div id="elementor-template-library-filter">
-				<select id="epka-elementor-template-library-filter-theme" class="elementor-template-library-filter-select" name="theme">
+				<select id="pkae-elementor-template-library-filter-theme" class="elementor-template-library-filter-select" name="theme">
 					<!-- JS will populate this -->
 				</select>
 			</div>
-			<div class="epka-search-wrapper">
-				<input type="text" id="epka-template-search" placeholder="SEARCH TEMPLATE" />
+			<div class="pkae-search-wrapper">
+				<input type="text" id="pkae-template-search" placeholder="SEARCH TEMPLATE" />
 				<i class="eicon-search"></i>
 			</div>
 		</div>

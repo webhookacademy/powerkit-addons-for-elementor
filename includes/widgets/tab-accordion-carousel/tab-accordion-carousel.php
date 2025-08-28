@@ -1,5 +1,5 @@
 <?php
-namespace ElementorPowerKitWidgets;
+namespace PKAEElementorPowerKitWidgets;
 
 use Elementor\Widget_Base;
 use Elementor\Repeater;
@@ -15,45 +15,45 @@ class Tab_Accordion_Carousel extends Widget_Base {
 		parent::__construct( $data, $args );
 
 
-		// wp_register_style(
-		// 	'epka-owl-carousel',
-		// 	'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css',
-		// 	[],
-		// 	'2.3.4'
-		// );
-		// wp_register_style(
-		// 	'epka-owl-theme',
-		// 	'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css',
-		// 	[ 'epka-owl-carousel' ],
-		// 	'2.3.4'
-		// );
-		// wp_register_script(
-		// 	'epka-owl-carousel',
-		// 	'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js',
-		// 	[ 'jquery' ],
-		// 	'2.3.4',
-		// 	true
-		// );
+		wp_register_style(
+			'pkae-owl-carousel',
+			plugins_url( 'assets/vendor/owlcarousel/owl.carousel.min.css', __FILE__ ),
+			[],
+			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION
+		);
+		wp_register_style(
+			'pkae-owl-theme',
+			plugins_url( 'assets/vendor/owlcarousel/owl.theme.default.min.css', __FILE__ ),
+			[ 'pkae-owl-carousel' ],
+			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION
+		);
+		wp_register_script(
+			'pkae-owl-carousel',
+			plugins_url( 'assets/vendor/owlcarousel/owl.carousel.min.js', __FILE__ ),
+			[ 'jquery' ],
+			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION,
+			true
+		);
 
 		// Widget CSS/JS
 		wp_register_style(
-			'epka-tab-accordion-carousel',
+			'pkae-tab-accordion-carousel',
 			plugins_url( 'assets/css/tab-accordion-carousel.css', __FILE__ ),
-			[ 'epka-owl-theme' ],
-			EPKA_ELEMENTOR_POWERKIT_ADDONS_VERSION
+			[ 'pkae-owl-theme' ],
+			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION
 		);
 
 		wp_register_script(
-			'epka-tab-accordion-carousel',
+			'pkae-tab-accordion-carousel',
 			plugins_url( 'assets/js/tab-accordion-carousel.js', __FILE__ ),
-			[ 'jquery', 'epka-owl-carousel' ],
-			EPKA_ELEMENTOR_POWERKIT_ADDONS_VERSION,
+			[ 'jquery', 'pkae-owl-carousel' ],
+			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION,
 			true
 		);
 	}
 
 	public function get_name() {
-		return 'epka-tab-accordion-carousel';
+		return 'pkae-tab-accordion-carousel';
 	}
 
 	public function get_title() {
@@ -69,11 +69,11 @@ class Tab_Accordion_Carousel extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 'epka-owl-carousel', 'epka-owl-theme', 'epka-tab-accordion-carousel' ];
+		return [ 'pkae-owl-carousel', 'pkae-owl-theme', 'pkae-tab-accordion-carousel' ];
 	}
 
 	public function get_script_depends() {
-		return [ 'epka-owl-carousel', 'epka-tab-accordion-carousel' ];
+		return [ 'pkae-owl-carousel', 'pkae-tab-accordion-carousel' ];
 	}
 
 	protected function register_controls() {
@@ -155,7 +155,7 @@ class Tab_Accordion_Carousel extends Widget_Base {
 			'range' => [ 'px' => [ 'min' => 240, 'max' => 1400 ] ],
 			'default' => [ 'size' => 600, 'unit' => 'px' ],
 			'selectors' => [
-				'{{WRAPPER}} .epka-content-carousel' => 'width: {{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-content-carousel' => 'width: {{SIZE}}{{UNIT}};',
 			],
 		] );
 
@@ -169,12 +169,12 @@ class Tab_Accordion_Carousel extends Widget_Base {
 
 		$this->add_group_control( Group_Control_Typography::get_type(), [
 			'name' => 'title_typo',
-			'selector' => '{{WRAPPER}} .epka-slide-caption .epka-slide-title',
+			'selector' => '{{WRAPPER}} .pkae-slide-caption .pkae-slide-title',
 		] );
 
 		$this->add_group_control( Group_Control_Typography::get_type(), [
 			'name' => 'desc_typo',
-			'selector' => '{{WRAPPER}} .epka-slide-caption .epka-slide-desc',
+			'selector' => '{{WRAPPER}} .pkae-slide-caption .pkae-slide-desc',
 		] );
 
 		$this->end_controls_section();
@@ -183,7 +183,7 @@ class Tab_Accordion_Carousel extends Widget_Base {
 	protected function render() {
 		$settings    = $this->get_settings_for_display();
 		?>
-		<div class="epka-tab-accordion-carousel">
+		<div class="pkae-tab-accordion-carousel">
 			<h2>Tab Accordion Carousel</h2>
 		</div>
 		<?php

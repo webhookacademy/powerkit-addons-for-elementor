@@ -5,9 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( !class_exists( 'EPKA_Library_Manager' ) ) {
+if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 
-	class EPKA_Library_Manager {
+	class PKAE_Library_Manager {
 
 
 		/**
@@ -32,7 +32,7 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 		 *
 		 *
 		 * @since  1.0.0
-		 * @return EPKA_Library_Manager
+		 * @return PKAE_Library_Manager
 		 */
 		static public function init() {
 
@@ -52,14 +52,14 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 		 */
 		private function __construct() {
 
-			add_action( 'wp_ajax_get_epka_templates_library_view', array( $this, 'get_epka_templates_library_view' ) );
-			add_action( 'wp_ajax_get_epka_preview', array( $this, 'ajax_get_epka_preview' ) );
+			add_action( 'wp_ajax_get_pkae_templates_library_view', array( $this, 'get_pkae_templates_library_view' ) );
+			add_action( 'wp_ajax_get_pkae_preview', array( $this, 'ajax_get_pkae_preview' ) );
 			add_action( 'wp_ajax_get_filter_options', array( $this, 'get_template_filter_options_values' ) );
 			
 
 			/* Set initial version to the and call update on first use */
-			if( get_option( 'epka_current_version' ) == false ) {
-				update_option( 'epka_current_version', '0.0.0' );
+			if( get_option( 'pkae_current_version' ) == false ) {
+				update_option( 'pkae_current_version', '0.0.0' );
 			}
 
 		}
@@ -105,26 +105,25 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 		 * @since 1.0.0
 		 * @return void
 		 */
-		public function get_epka_templates_library_view() {
+		public function get_pkae_templates_library_view() {
 			
 			$template_list = array();
 			$thumb_url = '';
-			echo '<script> var EPKA_Index = []; </script>';
-				$local_file = EPKA_ELEMENTOR_POWERKIT_ADDONS_PATH . '/includes/data/json/info.json';
+				$local_file = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . '/includes/data/json/info.json';
 				if( self::init()->get_filesystem()->exists( $local_file ) ) {
 					$data = self::init()->get_filesystem()->get_contents( $local_file );
 					$template_list = json_decode( $data, true );
 				}
 				$thumb_base_url = trailingslashit( plugin_dir_url( dirname( __FILE__ ) ) . 'includes/data/images' );
 
-			echo '<div class="epka-main-tiled-view">';
+			echo '<div class="pkae-main-tiled-view">';
 			if( count( $template_list ) != 0 ) {
 				
 				for( $i = 0; $i < count( $template_list ); $i++ ) {
 					$slug = strtolower( str_replace( ' ', '-', $template_list[$i]['id'] ) );
 
 					if( isset( $template_list[$i]['separator'] ) ) {
-						echo '<h2 class="epka-templates-library-template-category" data-theme="'. esc_attr( strtolower( str_replace( ' ', '-', $template_list[$i]['theme'] ) ) ) .'">' . esc_html( $template_list[$i]['separator'] ) . '</h2>';
+						echo '<h2 class="pkae-templates-library-template-category" data-theme="'. esc_attr( strtolower( str_replace( ' ', '-', $template_list[$i]['theme'] ) ) ) .'">' . esc_html( $template_list[$i]['separator'] ) . '</h2>';
 					}
 					
 					$thumb_name = isset( $template_list[$i]['thumbnail'] ) ? $template_list[$i]['thumbnail'] : '';
@@ -135,29 +134,29 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 
 					?>
 					<div 
-						class="epka-templates-library-template epka-item" 
+						class="pkae-templates-library-template pkae-item" 
 						data-theme="<?php echo esc_attr( strtolower( str_replace( ' ', '-', $template_list[$i]['theme'] ) ) ) ?>" 
 						data-category="<?php echo esc_attr( strtolower( str_replace( ' ', '-', $template_list[$i]['category'] ) ) ) ?>"
 						>
-						<div class="epka-template-title">
+						<div class="pkae-template-title">
 							<?php echo esc_html( $template_list[$i]['name'] ); ?>
 						</div>
 						<div 
-							class="epka-template-thumb epka-index-<?php echo esc_attr( $i ); ?>" 
+							class="pkae-template-thumb pkae-index-<?php echo esc_attr( $i ); ?>" 
 							data-index="<?php echo esc_attr( $i ); ?>" 
 							data-template="<?php echo esc_attr( wp_json_encode( $template_list[$i] ) ); ?>"
 							style="background-image:url('<?php echo esc_url( $thumb_url ); ?>');"
 						>
 						</div>
-						<div class="epka-action-bar">
-							<div class="epka-grow"> </div>
-							<div class="epka-btn-template-insert" data-version="EPKA__version-<?php echo esc_attr( $i ); ?>" data-template-name="<?php echo esc_attr( $slug ); ?>"><?php esc_html_e( 'Insert Template', 'powerkit-addons-for-elementor' ); ?></div>
+						<div class="pkae-action-bar">
+							<div class="pkae-grow"> </div>
+							<div class="pkae-btn-template-insert" data-version="PKAE__version-<?php echo esc_attr( $i ); ?>" data-template-name="<?php echo esc_attr( $slug ); ?>"><?php esc_html_e( 'Insert Template', 'powerkit-addons-for-elementor' ); ?></div>
 						</div>
 					</div>
 				<?php
 				}  
 			} else {
-				echo '<div class="epka-no-results"> <i class="fa fa-frown-o"></i> ' . esc_html__( 'No Templates Found!', 'powerkit-addons-for-elementor' ) . ' </div>';
+				echo '<div class="pkae-no-results"> <i class="fa fa-frown-o"></i> ' . esc_html__( 'No Templates Found!', 'powerkit-addons-for-elementor' ) . ' </div>';
 			}
 			
 			echo '</div>';	
@@ -176,7 +175,7 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 
 			$themesList = $templates = array();
 
-			$localJson = EPKA_ELEMENTOR_POWERKIT_ADDONS_PATH . '/includes/data/json/info.json';
+			$localJson = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . '/includes/data/json/info.json';
 			if ( self::init()->get_filesystem()->exists( $localJson ) ) {
 				$data = self::init()->get_filesystem()->get_contents( $localJson );
 				$templates = json_decode( $data, true );
@@ -192,9 +191,7 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 
 			$themesList = array_unique( $themesList );
 
-			echo json_encode( $themesList );
-
-			wp_die();
+			wp_send_json( array_map( 'sanitize_text_field', $themesList ) );
 		}
 
 		/**
@@ -203,9 +200,22 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 		 * @since 1.0.0
 		 * @return void
 		 */
-		public function ajax_get_epka_preview() {
-			// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$this->get_preview_template( $_POST['data'] );
+		public function ajax_get_pkae_preview() {
+			// Verify nonce
+			check_ajax_referer( 'pkae_nonce_action', 'security' );
+
+			// Check permission
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				wp_send_json_error( 'Permission denied' );
+			}
+
+			// Sanitize array data properly
+			$data = [];
+			if ( isset( $_POST['data'] ) && is_array( $_POST['data'] ) ) {
+				$data = array_map( 'sanitize_text_field', wp_unslash( $_POST['data'] ) );
+			}
+
+			$this->get_preview_template( $data );
 			wp_die();
 		}
 
@@ -230,7 +240,7 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 				$thumb_url = $base . ltrim( $thumb, '/' );
 			}
 			?>
-			<div id="epka-elementor-template-library-preview">
+			<div id="pkae-elementor-template-library-preview">
 				<?php // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
 				<img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php echo esc_attr( isset( $data['name'] ) ? $data['name'] : '' ); ?>" />
 			</div>
@@ -255,7 +265,7 @@ if ( !class_exists( 'EPKA_Library_Manager' ) ) {
 	}
 
 	// Initialize the Elementor library
-	EPKA_Library_Manager::init();
+	PKAE_Library_Manager::init();
 
 	require __DIR__ . '/powerkit-template-library.php';
 

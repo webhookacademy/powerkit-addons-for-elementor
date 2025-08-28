@@ -1,0 +1,9 @@
+.pkae-hero{background:#f6f7f7;border:1px solid #e2e4e7;border-radius:12px;padding:24px;margin-bottom:20px}
+.pkae-hero__content h1{margin:0 0 6px}
+.pkae-hero__actions .button{margin-right:8px; margin-top: 10px;}
+.pkae-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.pkae-card{display:block;border:1px solid #e2e4e7;border-radius:10px;padding:14px;background:#fff;cursor:pointer}
+.pkae-card input{margin-right:8px;transform:translateY(2px)}
+.pkae-card__title{font-weight:600;display:block;margin-bottom:4px}
+.pkae-card__desc{display:block;color:#50575e;font-size:12px}
+.pkae-widget-save-btn {margin-top:20px !important}

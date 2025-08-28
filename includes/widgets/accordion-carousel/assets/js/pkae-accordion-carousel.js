@@ -9,8 +9,8 @@
     var track   = root.querySelector('.track');
     var wrap    = track ? track.parentElement : null; // scroll container (.slider)
     var cards   = track ? Array.prototype.slice.call(track.children) : [];
-    var prevBtn = root.querySelector('[data-epka-prev]');
-    var nextBtn = root.querySelector('[data-epka-next]');
+    var prevBtn = root.querySelector('[data-pkae-prev]');
+    var nextBtn = root.querySelector('[data-pkae-next]');
     var dotsBox = root.querySelector('.dots');
 
     if (!wrap || !cards.length) return;
@@ -127,15 +127,15 @@
 
   // Elementor hook – init per widget
   $(window).on('elementor/frontend/init', function () {
-    elementorFrontend.hooks.addAction('frontend/element_ready/epka-accordion-carousel.default', function ($scope) {
-      var root = $scope[0].querySelector('.epka-accordion-carousel');
+    elementorFrontend.hooks.addAction('frontend/element_ready/pkae-accordion-carousel.default', function ($scope) {
+      var root = $scope[0].querySelector('.pkae-accordion-carousel');
       initInstance(root);
     });
   });
 
   // Non-Elementor fallback (rare)
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.epka-accordion-carousel').forEach(initInstance);
+    document.querySelectorAll('.pkae-accordion-carousel').forEach(initInstance);
   });
 
 })(jQuery);

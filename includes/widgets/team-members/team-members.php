@@ -1,5 +1,5 @@
 <?php
-namespace ElementorPowerKitWidgets;
+namespace PKAEElementorPowerKitWidgets;
 
 use Elementor\Plugin;
 use Elementor\Widget_Base;
@@ -35,12 +35,12 @@ class Team_Members extends Widget_Base {
 	public function __construct( $data = [], $args = null ) {
 		parent::__construct( $data, $args );
 
-		wp_register_style( 'epka-team-members', plugins_url( 'css/frontend.css', __FILE__ ), [], EPKA_ELEMENTOR_POWERKIT_ADDONS_VERSION );
+		wp_register_style( 'pkae-team-members', plugins_url( 'css/frontend.css', __FILE__ ), [], PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION );
 		wp_register_style( 
-			'epka-awesomefont-brands', 
+			'pkae-awesomefont-brands', 
 			plugins_url( 'css/brands.min.css', __FILE__ ), 
 			[], 
-			EPKA_ELEMENTOR_POWERKIT_ADDONS_VERSION 
+			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION 
 		);
 	}
 
@@ -54,7 +54,7 @@ class Team_Members extends Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'epka-team-members';
+		return 'pkae-team-members';
 	}
 
 	/**
