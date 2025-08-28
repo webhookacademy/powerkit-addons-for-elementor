@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
-  $('.epka-accordion-carousel').each(function(){
+  $('.pkae-accordion-carousel').each(function(){
     const $wrap = $(this);
-    const $owl  = $wrap.find('.epka-owl-carousel');
+    const $owl  = $wrap.find('.pkae-owl-carousel');
     const showDots   = $wrap.data('show-dots') === 'yes';
     const showArrows = $wrap.data('show-arrows') === 'yes';
 
@@ -27,23 +27,23 @@ jQuery(document).ready(function($){
       // Add slidenumberN to non-cloned items
       let slidecount = 1;
       $wrap.find('.owl-item').not('.cloned').each(function(){
-        $(this).addClass('epka-slidenumber' + slidecount);
+        $(this).addClass('pkae-slidenumber' + slidecount);
         slidecount++;
       });
 
       // Add dotnumberN + data-info
       let dotcount = 1;
-      $wrap.find('.epka-owl-dot, .owl-dot').each(function(){
+      $wrap.find('.pkae-owl-dot, .owl-dot').each(function(){
         const $dot = $(this);
-        $dot.addClass('epka-owl-dot epka-dotnumber' + dotcount)
+        $dot.addClass('pkae-owl-dot pkae-dotnumber' + dotcount)
             .attr('data-info', dotcount);
         dotcount++;
       });
 
       // Set background-images of dots from slide <img>
-      $wrap.find('.epka-owl-dot').each(function(){
+      $wrap.find('.pkae-owl-dot').each(function(){
         const grab = $(this).data('info');
-        const $slide = $wrap.find('.epka-slidenumber' + grab + ' img').first();
+        const $slide = $wrap.find('.pkae-slidenumber' + grab + ' img').first();
         const src = $slide.attr('src');
         if (src) {
           $(this).css('background-image', 'url(' + src + ')');
@@ -51,9 +51,9 @@ jQuery(document).ready(function($){
       });
 
       // Equal height distribution (vertical rail)
-      const amount = $wrap.find('.epka-owl-dot').length || 1;
+      const amount = $wrap.find('.pkae-owl-dot').length || 1;
       const gotowidth = 100 / amount;
-      $wrap.find('.epka-owl-dot').css('height', gotowidth + '%');
+      $wrap.find('.pkae-owl-dot').css('height', gotowidth + '%');
 
       syncActive(event);
     }
@@ -63,8 +63,8 @@ jQuery(document).ready(function($){
       // owl gives absolute index including clones; map to current .owl-dot active class
       setTimeout(function(){
         // Owl adds/removes .active on dots automatically; ensure our class mirrors
-        $wrap.find('.epka-owl-dot').removeClass('active');
-        $wrap.find('.epka-owl-dots .active').addClass('active'); // keep if owl already did
+        $wrap.find('.pkae-owl-dot').removeClass('active');
+        $wrap.find('.pkae-owl-dots .active').addClass('active'); // keep if owl already did
       }, 0);
     }
   });

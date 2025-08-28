@@ -1,5 +1,5 @@
 <?php
-namespace ElementorPowerKitWidgets;
+namespace PKAEElementorPowerKitWidgets;
 
 use Elementor\Plugin;
 
@@ -7,19 +7,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-EPKA_Widgets::instance();
+PKAE_Widgets::instance();
 
 /**
  * Main Class for PowerKit Addons For Elementor Widgets.
  *
  * @since 1.0.0
  */
-class EPKA_Widgets {
+class PKAE_Widgets {
 
 	/**
 	 * Instance
 	 *
-	 * @var EPKA_Widgets The single instance of the class.
+	 * @var PKAE_Widgets The single instance of the class.
 	 * @since 1.0.0
 	 * @access private
 	 * @static
@@ -85,7 +85,7 @@ class EPKA_Widgets {
 			foreach ( glob( __DIR__ . '/widgets/*', GLOB_ONLYDIR | GLOB_NOSORT ) as $path ) {
 				$found_slugs[] = str_replace( __DIR__ . '/widgets/', '', $path );
 			}
-			$enabled = get_option( 'epka_enabled_widgets', $found_slugs );
+			$enabled = get_option( 'pkae_enabled_widgets', $found_slugs );
 
 			foreach ( glob( __DIR__ . '/widgets/*', GLOB_ONLYDIR | GLOB_NOSORT ) as $path ) {
 				$slug  = str_replace( __DIR__ . '/widgets/', '', $path );
@@ -99,7 +99,7 @@ class EPKA_Widgets {
 				if ( file_exists( $file ) ) {
 					require_once $file;
 
-					$class_name = '\ElementorPowerKitWidgets\\' . ucwords( $slug_, '_' );
+					$class_name = '\PKAEElementorPowerKitWidgets\\' . ucwords( $slug_, '_' );
 
 					if ( class_exists( $class_name ) ) {
 						Plugin::instance()->widgets_manager->register( new $class_name() );

@@ -1,5 +1,5 @@
 <?php
-namespace ElementorPowerKitWidgets;
+namespace PKAEElementorPowerKitWidgets;
 
 use Elementor\Plugin;
 use Elementor\Widget_Base;
@@ -24,24 +24,24 @@ class Accordion_Carousel extends Widget_Base {
 		parent::__construct( $data, $args );
 
 		wp_register_style(
-			'epka-accordion-carousel',
-			plugins_url( 'assets/css/epka-accordion-carousel.css', __FILE__ ),
+			'pkae-accordion-carousel',
+			plugins_url( 'assets/css/pkae-accordion-carousel.css', __FILE__ ),
 			[],
-			EPKA_ELEMENTOR_POWERKIT_ADDONS_VERSION
+			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION
 		);
 
 		wp_register_script(
-			'epka-accordion-carousel',
-			plugins_url( 'assets/js/epka-accordion-carousel.js', __FILE__ ),
+			'pkae-accordion-carousel',
+			plugins_url( 'assets/js/pkae-accordion-carousel.js', __FILE__ ),
 			[ 'jquery' ],
-			EPKA_ELEMENTOR_POWERKIT_ADDONS_VERSION,
+			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION,
 			true
 		);
 
 	}
 
 	public function get_name() {
-		return 'epka-accordion-carousel';
+		return 'pkae-accordion-carousel';
 	}
 
 	public function get_title() {
@@ -57,11 +57,11 @@ class Accordion_Carousel extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 'epka-accordion-carousel' ];
+		return [ 'pkae-accordion-carousel' ];
 	}
 
 	public function get_script_depends() {
-		return [ 'epka-accordion-carousel' ];
+		return [ 'pkae-accordion-carousel' ];
 	}
 
 	protected function register_controls() {
@@ -164,7 +164,7 @@ class Accordion_Carousel extends Widget_Base {
 			'range' => [ 'px' => [ 'min' => 200, 'max' => 800 ] ],
 			'default' => [ 'size' => 416, 'unit' => 'px' ],
 			'selectors' => [
-				'{{WRAPPER}} .epka-accordion-carousel .project-card' => 'height: {{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-accordion-carousel .project-card' => 'height: {{SIZE}}{{UNIT}};',
 			],
 		] );
 
@@ -175,7 +175,7 @@ class Accordion_Carousel extends Widget_Base {
 			'range' => [ 'rem' => [ 'min' => 3, 'max' => 20 ] ],
 			'default' => [ 'size' => 5, 'unit' => 'rem' ],
 			'selectors' => [
-				'{{WRAPPER}}' => '--epka-closed: {{SIZE}}{{UNIT}};',
+				'{{WRAPPER}}' => '--pkae-closed: {{SIZE}}{{UNIT}};',
 			],
 		] );
 
@@ -186,7 +186,7 @@ class Accordion_Carousel extends Widget_Base {
 			'range' => [ 'rem' => [ 'min' => 12, 'max' => 60 ] ],
 			'default' => [ 'size' => 30, 'unit' => 'rem' ],
 			'selectors' => [
-				'{{WRAPPER}}' => '--epka-open: {{SIZE}}{{UNIT}};',
+				'{{WRAPPER}}' => '--pkae-open: {{SIZE}}{{UNIT}};',
 			],
 		] );
 
@@ -197,7 +197,7 @@ class Accordion_Carousel extends Widget_Base {
 			'range' => [ 'rem' => [ 'min' => .25, 'max' => 3, 'step' => .05 ] ],
 			'default' => [ 'size' => 1.25, 'unit' => 'rem' ],
 			'selectors' => [
-				'{{WRAPPER}}' => '--epka-gap: {{SIZE}}{{UNIT}};',
+				'{{WRAPPER}}' => '--pkae-gap: {{SIZE}}{{UNIT}};',
 			],
 		] );
 
@@ -208,7 +208,7 @@ class Accordion_Carousel extends Widget_Base {
 			'range' => [ 'px' => [ 'min' => 0, 'max' => 50 ] ],
 			'default' => [ 'size' => 16, 'unit' => 'px' ],
 			'selectors' => [
-				'{{WRAPPER}} .epka-accordion-carousel .project-card' => 'border-radius: {{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-accordion-carousel .project-card' => 'border-radius: {{SIZE}}{{UNIT}};',
 			],
 		] );
 
@@ -217,7 +217,7 @@ class Accordion_Carousel extends Widget_Base {
 			'type'  => Controls_Manager::COLOR,
 			'default' => '#ff6b35',
 			'selectors' => [
-				'{{WRAPPER}}' => '--epka-accent: {{VALUE}};',
+				'{{WRAPPER}}' => '--pkae-accent: {{VALUE}};',
 			],
 		] );
 
@@ -230,12 +230,12 @@ class Accordion_Carousel extends Widget_Base {
 
 		$this->add_group_control( Group_Control_Typography::get_type(), [
 			'name' => 'title_typo',
-			'selector' => '{{WRAPPER}} .epka-accordion-carousel .project-card__title',
+			'selector' => '{{WRAPPER}} .pkae-accordion-carousel .project-card__title',
 		] );
 
 		$this->add_group_control( Group_Control_Typography::get_type(), [
 			'name' => 'desc_typo',
-			'selector' => '{{WRAPPER}} .epka-accordion-carousel .project-card__desc',
+			'selector' => '{{WRAPPER}} .pkae-accordion-carousel .project-card__desc',
 		] );
 
 		$this->end_controls_section();
@@ -247,18 +247,18 @@ class Accordion_Carousel extends Widget_Base {
 		$show_dots   = ( isset( $settings['show_dots'] ) && 'yes' === $settings['show_dots'] ) ? 'yes' : 'no';
 		$show_arrows = ( isset( $settings['show_arrows'] ) && 'yes' === $settings['show_arrows'] ) ? 'yes' : 'no';
 
-		$wid = 'epka-accordion-carousel-' . esc_attr( $this->get_id() );
+		$wid = 'pkae-accordion-carousel-' . esc_attr( $this->get_id() );
 		?>
 		<section id="<?php echo esc_attr( $wid ); ?>"
-			class="epka-accordion-carousel"
+			class="pkae-accordion-carousel"
 			data-show-dots="<?php echo esc_attr( $show_dots ); ?>"
 			data-show-arrows="<?php echo esc_attr( $show_arrows ); ?>"
 			aria-roledescription="carousel">
 
 			<div class="head">
 				<div class="controls">
-					<button class="nav-btn" data-epka-prev aria-label="<?php esc_attr_e( 'Previous slide', 'powerkit-addons-for-elementor' ); ?>">‹</button>
-					<button class="nav-btn" data-epka-next aria-label="<?php esc_attr_e( 'Next slide', 'powerkit-addons-for-elementor' ); ?>">›</button>
+					<button class="nav-btn" data-pkae-prev aria-label="<?php esc_attr_e( 'Previous slide', 'powerkit-addons-for-elementor' ); ?>">‹</button>
+					<button class="nav-btn" data-pkae-next aria-label="<?php esc_attr_e( 'Next slide', 'powerkit-addons-for-elementor' ); ?>">›</button>
 				</div>
 			</div>
 
