@@ -2,12 +2,12 @@
     const options = {
         template: [
             { text: "Category", value: "" },
-            { text: "Turbo Template", value: "turbo-template" },
-            { text: "Sales", value: "turbo-sales" }
+            { text: "Template", value: "template-home" },
         ],
         section: [
             { text: "Category", value: "" },
-            { text: "Street Food", value: "street-food" }
+            { text: "Service", value: "our-services" },
+            { text: "Pricing", value: "pricing" },
         ]
     };
 
@@ -48,7 +48,7 @@
             defaultValue = "";
         } else if (options[type]) {
             list = options[type];
-            defaultValue = type === "template" ? "turbo-template" : "street-food";
+            defaultValue = type === "template" ? "template-home" : "our-services";
         }
 
         list.forEach(opt => {

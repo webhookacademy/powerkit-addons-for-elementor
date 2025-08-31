@@ -125,12 +125,12 @@ var PKAEStore = null;
             var PKAE_Selected_Item = this;
             showLoadingView();
             var filename = $(PKAE_Selected_Item).attr("data-template-name") + ".json";
-            console.log("File Name: ", filename);
+            // console.log("File Name: ", filename);
             $.post(
                     ajaxurl, { action: 'get_content_from_powerkit_export_file', filename: filename, security: pkae_ajax.security },
                     function(response) {
                         if (!response.success || !response.data) {
-                            console.error('Template Load Failed:', response);
+                            // console.error('Template Load Failed:', response);
                             elementor.templates.showErrorDialog('Template response invalid.');
                             hideLoadingView();
                             return;
@@ -157,7 +157,7 @@ var PKAEStore = null;
                     }
                 )
                 .fail(function error(errorData) {
-                    console.error('Template Import Error:', errorData.responseText);
+                    // console.error('Template Import Error:', errorData.responseText);
                     elementor.templates.showErrorDialog(
                         'The template couldn’t be imported. Details in console log.'
                     );
