@@ -1,32 +1,41 @@
 [
   {
-    "name": "Home Page",
-    "id": "turbo-template",
-    "theme": "turbo-template",
-    "category": "Single Landing Page",
-    "thumbnail": "1",
+    "name": "Template Home Yoga",
+    "id": "v1-home-yoga",
+    "theme": "template-home",
+    "category": "template-home",
+    "thumbnail": "v1-home-yoga",
     "requires": ["free"],
     "contributor": ["PowerKit"],
-    "separator": "Single Landing Page"
+    "separator": "Home Page"
   },
   {
-    "name": "About Page",
-    "id": "turbo-template",
-    "theme": "turbo-sales",
-    "category": "turbo-sales",
-    "thumbnail": "2",
+    "name": "Service Section",
+    "id": "service-one",
+    "theme": "our-services",
+    "category": "our-services",
+    "thumbnail": "service-one",
     "requires": ["free"],
     "contributor": ["PowerKit"],
-    "separator": "Sales"
+    "separator": "Service Section"
   },
-    {
-    "name": "Product Section",
-    "id": "burger-sales",
-    "theme": "street-food",
-    "category": "street-food",
-    "thumbnail": "3",
+  {
+    "name": "Service Section",
+    "id": "service-two",
+    "theme": "our-services",
+    "category": "our-services",
+    "thumbnail": "service-two",
+    "requires": ["free"],
+    "contributor": ["PowerKit"]
+  },
+  {
+    "name": "Pricing Section",
+    "id": "pricing-table-one",
+    "theme": "pricing",
+    "category": "pricing",
+    "thumbnail": "pricing-table-one",
     "requires": ["free"],
     "contributor": ["PowerKit"],
-    "separator": "Fast Food"
+    "separator": "Pricing Table Section"
   }
 ]

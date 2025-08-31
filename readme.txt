@@ -14,11 +14,20 @@ Tags:              elementor, page builder, template gallery, kit library, power
 == Description ==
 
 **PowerKit Addons for Elementor** offers a rich collection of unique widgets, templates, and ready-made sections to take your Elementor designs to the next level.With our professionally crafted templates, you can create stunning,
+https://www.youtube.com/@WebhookAcademy
 fully responsive web pages in minutes — all without writing a single line of code. Built to be lightweight and seamlessly integrated with Elementor, PowerKit Addons ensures smooth performance while giving you the creative freedom to design faster and smarter.
 
 = Useful Links =
 - 📂 GitHub Repository: [https://github.com/webhookacademy/powerkit-addons-for-elementor](https://github.com/webhookacademy/powerkit-addons-for-elementor)  
 - ▶️ YouTube Channel: [https://www.youtube.com/@webhookacademy](https://www.youtube.com/@webhookacademy)
+
+== Screenshots ==
+
+1. PowerKit Addons dashboard in WordPress admin panel (enable/disable widgets).
+2. Elementor editor showing PowerKit Addons widgets available in the sidebar.
+3. PowerKit Addons template library popup inside Elementor editor.
+4. All templates available for insertion from the library.
+5. Section wise templates preview in the template library.
 
 == Key Features ==
 
