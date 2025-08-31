@@ -1,5 +1,5 @@
 === PowerKit Addons For Elementor ===
-Contributors:      webhookacademy
+Contributors:      webhookacademy, wpanik
 Author URI:        https://webhookacademy.com/
 Requires at least: 6.0
 Requires PHP:      7.4
