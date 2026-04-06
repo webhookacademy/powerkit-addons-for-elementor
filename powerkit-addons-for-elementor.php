@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       PowerKit Addons For Elementor
  * Description:       A plugin that provides a collection of Elementor Templates (Pages, Sections, Block) created by the powerkit team
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Webhook Academy
  * Author URI:        https://webhookacademy.com/
  * plugin URI:        https://webhookacademy.com/plugin/powerkit-addons-for-elementor/
@@ -10,10 +10,10 @@
  * License:           GNU General Public License v2
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Requires at least: 6.0
- * Tested up to:      6.8
+ * Tested up to:      6.9
  * Requires Plugins: elementor
- * Elementor tested up to: 3.99
- * Elementor Pro tested up to: 3.99
+ * Elementor tested up to: 4.0.1
+ * Elementor Pro tested up to: 4.0.1
  */
 
 namespace PKAE_Elementor_PowerKit_Addons;
@@ -69,6 +69,7 @@ final class PKAE_Elementor_PowerKit_Addons {
 		$this->includes();
 
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'plugin_css' ) );
+		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'pkae_editor_panel_css' ) );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'plugin_css' ) );
 
 		add_action( 'elementor/editor/footer', array( $this, 'plugin_scripts' ) );
@@ -147,6 +148,20 @@ final class PKAE_Elementor_PowerKit_Addons {
 			array(),
 			PKAE_ELEMENTOR_POWERKIT_ADDONS_VERSION
 		);
+	}
+
+	public function pkae_editor_panel_css() {
+		// Hide desktop-only controls in Elementor panel when mobile device is active.
+		$css = '
+			.elementor-device-mobile .elementor-control-closed_width,
+			.elementor-device-mobile .elementor-control-open_width,
+			.elementor-device-mobile .elementor-control-gap {
+				display: none !important;
+			}
+		';
+		wp_register_style( 'pkae-editor-panel', false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		wp_enqueue_style( 'pkae-editor-panel' );
+		wp_add_inline_style( 'pkae-editor-panel', $css );
 	}
 
 	public function plugin_scripts() {

@@ -3,8 +3,8 @@ Contributors:      webhookacademy, wpanik
 Author URI:        https://webhookacademy.com/
 Requires at least: 6.0
 Requires PHP:      7.4
-Tested up to:      6.8
-Stable tag:        1.0.0
+Tested up to:      6.9
+Stable tag:        1.0.1
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Tags:              elementor, page builder, template gallery, kit library, powerkit addons
@@ -91,6 +91,10 @@ Yes. This plugin works with any theme that supports Elementor, including popular
 We regularly release updates with new widgets, templates, and features to keep your designs fresh and your workflow efficient.
 
 == Changelog ==
+
+= 1.0.1 =
+1. **Updated**: Updated the plugin security and increased plugin performance.
+2. **Tested**: The plugin has been tested and is fully compatible with the latest version of WordPress, 6.9. and elementor 4.0.1.
 
 = 1.0.0 =
   * Plugin Release

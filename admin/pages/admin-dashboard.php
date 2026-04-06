@@ -2,46 +2,39 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! current_user_can( 'manage_options' ) ) return;
 
-// Where your widgets live:
-$widgets_dir = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/widgets';
+$pkae_widgets_dir = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/widgets';
 
-// Discover widget slugs from folder names
-$catalog = [];
-foreach ( glob( $widgets_dir . '/*', GLOB_ONLYDIR | GLOB_NOSORT ) as $path ) {
-    $slug = basename( $path );
+$pkae_catalog = [];
+foreach ( glob( $pkae_widgets_dir . '/*', GLOB_ONLYDIR | GLOB_NOSORT ) as $pkae_path ) {
+	$pkae_slug  = basename( $pkae_path );
+	$pkae_label = ucwords( str_replace( [ '-', '_' ], ' ', $pkae_slug ) );
 
-    // Make a human label from slug: "team-members" => "Team Members"
-    $label = ucwords( str_replace( ['-', '_'], ' ', $slug ) );
+	$pkae_file = trailingslashit( $pkae_path ) . $pkae_slug . '.php';
+	$pkae_desc = '';
+	if ( file_exists( $pkae_file ) ) {
+		$pkae_header = file_get_contents( $pkae_file, false, null, 0, 400 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( $pkae_header && preg_match( '/\*\s*(.+)\r?\n/', $pkae_header, $pkae_m ) ) {
+			$pkae_maybe = trim( $pkae_m[1] );
+			if ( $pkae_maybe && stripos( $pkae_maybe, 'php' ) === false ) {
+				$pkae_desc = $pkae_maybe;
+			}
+		}
+	}
 
-    // Optional: read first PHPDoc line from widget file for description
-    $file = trailingslashit( $path ) . $slug . '.php';
-    $desc = '';
-    if ( file_exists( $file ) ) {
-        $header = file_get_contents( $file, false, null, 0, 400 );
-        if ( $header && preg_match( '/\*\s*(.+)\r?\n/', $header, $m ) ) {
-            $maybe = trim( $m[1] );
-            if ( $maybe && stripos( $maybe, 'php' ) === false ) {
-                $desc = $maybe;
-            }
-        }
-    }
-
-    $catalog[ $slug ] = [
-        'label'       => $label,
-        'description' => $desc,
-    ];
+	$pkae_catalog[ $pkae_slug ] = [
+		'label'       => $pkae_label,
+		'description' => $pkae_desc,
+	];
 }
 
-// Current enabled list (default: all discovered)
-$enabled = get_option( 'pkae_enabled_widgets', array_keys( $catalog ) );
+$pkae_enabled = get_option( 'pkae_enabled_widgets', array_keys( $pkae_catalog ) );
 
-// Save
 if ( isset( $_POST['pkae_save_widgets'] ) && check_admin_referer( 'pkae_save_widgets_nonce', '_wpnonce' ) ) {
-    $new = isset( $_POST['widgets'] ) && is_array( $_POST['widgets'] ) ? array_map( 'sanitize_key', $_POST['widgets'] ) : [];
-    $new = array_values( array_intersect( array_keys( $catalog ), $new ) ); // keep valid only
-    update_option( 'pkae_enabled_widgets', $new );
-    $enabled = $new;
-    echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Settings saved.', 'powerkit-addons-for-elementor' ) . '</p></div>';
+	$pkae_new = isset( $_POST['widgets'] ) && is_array( $_POST['widgets'] ) ? array_map( 'sanitize_key', $_POST['widgets'] ) : []; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	$pkae_new = array_values( array_intersect( array_keys( $pkae_catalog ), $pkae_new ) );
+	update_option( 'pkae_enabled_widgets', $pkae_new );
+	$pkae_enabled = $pkae_new;
+	echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Settings saved.', 'powerkit-addons-for-elementor' ) . '</p></div>';
 }
 ?>
 
@@ -62,10 +55,10 @@ if ( isset( $_POST['pkae_save_widgets'] ) && check_admin_referer( 'pkae_save_wid
     <input type="hidden" name="pkae_save_widgets" value="1" />
 
     <div class="pkae-grid">
-      <?php foreach ( $catalog as $slug => $meta ) : ?>
+      <?php foreach ( $pkae_catalog as $pkae_slug => $pkae_meta ) : ?>
         <label class="pkae-card">
-          <input type="checkbox" name="widgets[]" value="<?php echo esc_attr( $slug ); ?>" <?php checked( in_array( $slug, $enabled, true ) ); ?> />
-          <span class="pkae-card__title"><?php echo esc_html( $meta['label'] ); ?></span>
+          <input type="checkbox" name="widgets[]" value="<?php echo esc_attr( $pkae_slug ); ?>" <?php checked( in_array( $pkae_slug, $pkae_enabled, true ) ); ?> />
+          <span class="pkae-card__title"><?php echo esc_html( $pkae_meta['label'] ); ?></span>
         </label>
       <?php endforeach; ?>
     </div>
