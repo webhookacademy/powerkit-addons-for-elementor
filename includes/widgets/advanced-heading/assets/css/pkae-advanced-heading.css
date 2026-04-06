@@ -1,0 +1,114 @@
+.pkae-adv-heading { word-break: break-word; }
+
+/* ── Title ──────────────────────────────────────────────────────────────── */
+.pkae-adv-heading__title {
+  margin: 0 0 .5em;
+  line-height: 1.2;
+}
+.pkae-adv-heading__title a {
+  color: inherit;
+  text-decoration: none;
+}
+.pkae-adv-heading__title a:hover { opacity: .85; }
+
+/* ── Sub Heading ────────────────────────────────────────────────────────── */
+.pkae-adv-heading__sub {
+  display: block;
+  margin-bottom: .5em;
+  font-size: .9em;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+/* ── Description ────────────────────────────────────────────────────────── */
+.pkae-adv-heading__desc {
+  margin: .75em 0 0;
+  line-height: 1.6;
+}
+
+/* ── Separator ──────────────────────────────────────────────────────────── */
+.pkae-adv-heading__sep {
+  display: flex;
+  align-items: center;
+  gap: .6em;
+  margin: .75em 0;
+}
+
+/* line fills available space */
+.pkae-adv-heading__sep-line {
+  flex: 1;
+  display: block;
+  border-top: 2px solid #333;
+  min-width: 10px;
+}
+
+/* line-only: single line, no flex trick needed */
+.pkae-adv-heading__sep--line .pkae-adv-heading__sep-line { flex: none; }
+
+/* icon */
+.pkae-adv-heading__sep-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.2em;
+  line-height: 1;
+}
+.pkae-adv-heading__sep-icon svg { display: block; }
+
+/* image */
+.pkae-adv-heading__sep-img {
+  display: block;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* text */
+.pkae-adv-heading__sep-text {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* alignment helpers */
+.pkae-adv-heading[style*="text-align: center"] .pkae-adv-heading__sep,
+.pkae-adv-heading[style*="text-align:center"]  .pkae-adv-heading__sep { justify-content: center; }
+
+.pkae-adv-heading[style*="text-align: right"] .pkae-adv-heading__sep,
+.pkae-adv-heading[style*="text-align:right"]  .pkae-adv-heading__sep { justify-content: flex-end; }
+
+/* ── Highlighted Text (<mark>) ──────────────────────────────────────────── */
+.pkae-adv-heading__title mark {
+  background-color: transparent;
+  color: inherit;
+  display: inline;
+}
+
+/* ── Sub Heading Badge ──────────────────────────────────────────────────── */
+.pkae-adv-heading__sub {
+  display: inline-block;
+}
+
+/* ── Background Watermark Text ──────────────────────────────────────────── */
+.pkae-adv-heading__title[data-bg-text] {
+  position: relative;
+}
+.pkae-adv-heading__title[data-bg-text]::before {
+  content: attr(data-bg-text);
+  position: absolute;
+  top: var(--pkae-bg-y, 50%);
+  left: var(--pkae-bg-x, 50%);
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(0,0,0,0.07);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+}
+.pkae-adv-heading__title[data-bg-text] > * {
+  position: relative;
+  z-index: 1;
+}

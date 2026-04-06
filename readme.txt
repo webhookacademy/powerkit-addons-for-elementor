@@ -51,6 +51,16 @@ fully responsive web pages in minutes — all without writing a single line of c
 
 **Developer-Friendly** – Clean, well-structured code following WordPress standards.
 
+== Widgets ==
+
+= Sliders & Carousels =
+
+* **Accordion Slider** – A unique accordion-style card slider. Cards expand on hover/click to reveal content. Supports autoplay, loop, dots, arrows, custom icons, mobile swipe, and full style controls.
+
+= Content =
+
+* **Advanced Heading** – A powerful heading widget with sub heading, description, separator (line / line+icon / line+image / line+text), highlighted text via `<mark>` tag, background watermark text, and complete typography & style controls.
+
 == Installation Guide ==
 
 Follow these steps to install Powerkit Addons For Elementor on your WordPress website:
@@ -95,6 +105,8 @@ We regularly release updates with new widgets, templates, and features to keep y
 = 1.0.1 =
 1. **Updated**: Updated the plugin security and increased plugin performance.
 2. **Tested**: The plugin has been tested and is fully compatible with the latest version of WordPress, 6.9. and elementor 4.0.1.
+3. **New Widget**: Added **Advanced Heading** widget with sub heading, description, separator styles, highlighted text, and background watermark text support.
+4. **Updated Widget**: Improved **Accordion Slider** widget with full navigation controls, autoplay, loop, dots styles, arrow position, mobile responsive single-card slider, and extended style options.
 
 = 1.0.0 =
   * Plugin Release
