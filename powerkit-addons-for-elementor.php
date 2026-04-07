@@ -53,6 +53,8 @@ final class PKAE_Elementor_PowerKit_Addons {
 		add_action( 'admin_enqueue_scripts', array( $this, 'pkae_enqueue_admin_global_css' ), 99 );
 
 		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
+		add_action( 'wp_ajax_pkae_load_posts', array( $this, 'ajax_load_posts' ) );
+		add_action( 'wp_ajax_nopriv_pkae_load_posts', array( $this, 'ajax_load_posts' ) );
 	}
 
 	public function on_plugins_loaded() {
@@ -73,6 +75,7 @@ final class PKAE_Elementor_PowerKit_Addons {
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'plugin_css' ) );
 
 		add_action( 'elementor/editor/footer', array( $this, 'plugin_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
 		add_action( 'elementor/editor/footer', array( $this, 'insert_js_templates' ) );
 
 		$this->init();
@@ -150,6 +153,19 @@ final class PKAE_Elementor_PowerKit_Addons {
 		);
 	}
 
+	public function frontend_scripts() {
+		// Inline script to pass AJAX data — works regardless of script load order
+		$data = [
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'pkae_posts_nonce' ),
+		];
+		wp_add_inline_script(
+			'jquery',
+			'window.pkaePostsAjax = ' . wp_json_encode( $data ) . ';',
+			'after'
+		);
+	}
+
 	public function pkae_editor_panel_css() {
 		// Hide desktop-only controls in Elementor panel when mobile device is active.
 		$css = '
@@ -197,6 +213,54 @@ final class PKAE_Elementor_PowerKit_Addons {
 				'security' => wp_create_nonce( 'pkae_nonce_action' ),
 			]
 		);
+
+		wp_localize_script(
+			'pkae-posts',
+			'pkaePostsAjax',
+			[
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'pkae_posts_nonce' ),
+			]
+		);
+	}
+
+	public function ajax_load_posts() {
+		check_ajax_referer( 'pkae_posts_nonce', 'nonce' );
+
+		$widget_id = isset( $_POST['widget_id'] ) ? sanitize_text_field( wp_unslash( $_POST['widget_id'] ) ) : '';
+		$page      = isset( $_POST['page'] ) ? (int) $_POST['page'] : 1;
+
+		// Get widget settings from Elementor
+		$post_id = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
+
+		// Fallback: basic query with page
+		$args = [
+			'post_type'      => 'post',
+			'posts_per_page' => 6,
+			'paged'          => $page,
+			'post_status'    => 'publish',
+		];
+
+		$query = new \WP_Query( $args );
+		$html  = '';
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$html .= '<article class="pkae-posts__item">';
+				if ( has_post_thumbnail() ) {
+					$html .= '<div class="pkae-posts__img" style="height:220px;"><a href="' . esc_url( get_permalink() ) . '">' . get_the_post_thumbnail( null, 'medium_large' ) . '</a></div>';
+				}
+				$html .= '<div class="pkae-posts__content">';
+				$html .= '<h3 class="pkae-posts__title"><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h3>';
+				$html .= '<p class="pkae-posts__excerpt">' . esc_html( wp_trim_words( get_the_excerpt(), 20 ) ) . '</p>';
+				$html .= '<a class="pkae-posts__cta" href="' . esc_url( get_permalink() ) . '">' . esc_html__( 'Read More', 'powerkit-addons-for-elementor' ) . '</a>';
+				$html .= '</div></article>';
+			}
+			wp_reset_postdata();
+		}
+
+		wp_send_json_success( [ 'html' => $html ] );
 	}
 
 	public function is_compatible() {
