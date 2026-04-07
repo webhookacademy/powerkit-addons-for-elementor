@@ -776,11 +776,11 @@ class Posts extends Widget_Base {
 			$args['author__in'] = array_map( 'intval', $s['authors'] );
 		}
 		if ( isset( $s['exclude_current'] ) && 'yes' === $s['exclude_current'] && is_singular() ) {
-			$args['post__not_in'] = [ get_the_ID() ];
+			$args['post__not_in'] = [ get_the_ID() ]; // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 		}
 		if ( ! empty( $s['exclude_ids'] ) ) {
 			$exclude = array_map( 'intval', explode( ',', $s['exclude_ids'] ) );
-			$args['post__not_in'] = array_merge( $args['post__not_in'] ?? [], $exclude );
+			$args['post__not_in'] = array_merge( $args['post__not_in'] ?? [], $exclude ); // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 		}
 
 		return new \WP_Query( $args );

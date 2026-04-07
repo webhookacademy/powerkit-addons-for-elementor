@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       PowerKit Addons For Elementor
  * Description:       A plugin that provides a collection of Elementor Templates (Pages, Sections, Block) created by the powerkit team
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            Webhook Academy
  * Author URI:        https://webhookacademy.com/
  * plugin URI:        https://webhookacademy.com/plugin/powerkit-addons-for-elementor/

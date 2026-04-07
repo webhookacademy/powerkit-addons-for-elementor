@@ -4,7 +4,7 @@ Author URI:        https://webhookacademy.com/
 Requires at least: 6.0
 Requires PHP:      7.4
 Tested up to:      6.9
-Stable tag:        1.0.2
+Stable tag:        1.0.3
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Tags:              elementor, page builder, template gallery, kit library, powerkit addons
@@ -53,6 +53,8 @@ fully responsive web pages in minutes — all without writing a single line of c
 
 == Widgets ==
 
+**10 powerful widgets available now — and more are on the way! Each update brings new widgets packed with advanced controls. Stay tuned and keep the plugin updated to unlock the full potential of your Elementor designs.**
+
 = Sliders & Carousels =
 
 * **Accordion Slider** – A unique accordion-style card slider. Cards expand on hover/click to reveal content. Supports autoplay, loop, dots, arrows, custom icons, mobile swipe, and full style controls.
@@ -66,6 +68,8 @@ fully responsive web pages in minutes — all without writing a single line of c
 * **Image Gallery** – Filterable image gallery with Grid and Masonry layouts, lightbox with navigation, hover overlay, caption, CSS filters, and full style controls.
 * **Info Box** – Multi-purpose info box with icon/image/text, title prefix, separator, CTA (text/button/complete box), badge, ribbon, hover animations, and complete style controls.
 * **Modal Popup** – Feature-rich popup widget with multiple content types (text, photo, YouTube, Vimeo, template, iFrame), trigger options (button, text, icon, image, auto, exit intent), cookie support, appear animations, and full style controls.
+* **Posts** – Advanced posts widget with powerful query builder, multiple skins (Classic, Card, Overlay, List), Grid/Masonry layouts, filterable tabs, AJAX Load More/Infinite Scroll pagination, and complete style controls.
+* **Price List** – Premium price list widget with repeater items (image/icon, title, description, price, original price, badge, link), multiple layouts (List/Grid), image positions (Top/Left/Right), price position control, content alignment, and full style controls.
 
 == Installation Guide ==
 
@@ -107,6 +111,9 @@ Yes. This plugin works with any theme that supports Elementor, including popular
 We regularly release updates with new widgets, templates, and features to keep your designs fresh and your workflow efficient.
 
 == Changelog ==
+
+= 1.0.3 =
+1. **Added**: 2 new advanced widgets — **Posts** (query builder, skins, filterable tabs, AJAX pagination) and **Price List** (repeater items, multiple layouts, image positions, price position control).
 
 = 1.0.2 =
 1. **Added**: 6 new advanced widgets — **Business Hours**, **Content Toggle**, **Google Map**, **Image Gallery**, **Info Box**, and **Modal Popup**. All widgets come with full style controls, responsive support, and advanced features beyond standard Elementor offerings.
