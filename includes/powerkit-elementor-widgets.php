@@ -12,7 +12,7 @@ PKAE_Widgets::instance();
 /**
  * Main Class for PowerKit Addons For Elementor Widgets.
  *
- * @since 1.0.1
+ * @since 1.0.2
  */
 class PKAE_Widgets {
 
@@ -20,7 +20,7 @@ class PKAE_Widgets {
 	 * Instance
 	 *
 	 * @var PKAE_Widgets The single instance of the class.
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 * @access private
 	 * @static
 	 */
@@ -31,7 +31,7 @@ class PKAE_Widgets {
 	 *
 	 * Ensures only one instance of the class is loaded or can be loaded.
 	 *
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 * @access public
 	 * @static
 	 */
@@ -45,7 +45,7 @@ class PKAE_Widgets {
 	/**
 	 * Constructor
 	 *
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 * @access public
 	 */
 	public function __construct() {
@@ -60,7 +60,7 @@ class PKAE_Widgets {
 	 *
 	 * Fired by `plugins_loaded` action hook.
 	 *
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 * @access public
 	 */
 	public function init() {
@@ -75,7 +75,7 @@ class PKAE_Widgets {
 	 *
 	 * Include widgets files and register them
 	 *
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 * @access public
 	 */
 
@@ -115,7 +115,7 @@ class PKAE_Widgets {
 	 *
 	 * Add custom widget categories to Elementor.
 	 *
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 * @access public
 	 */
 	function add_widget_categories( $elements_manager ) {
@@ -139,7 +139,7 @@ class PKAE_Widgets {
 	/**
 	 * Get a list of all the allowed HTML tags.
 	 *
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 * @access public
 	 * @return array Array of allowed HTML tags.
 	 */
@@ -203,7 +203,7 @@ class PKAE_Widgets {
 	 * Strip all the tags except allowed html tags
 	 *
 	 * @param string $string
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 * @access public
 	 * @return string
 	 */

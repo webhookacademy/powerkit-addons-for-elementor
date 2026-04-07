@@ -1,0 +1,166 @@
+/* ── Info Box ───────────────────────────────────────────────────────────── */
+.pkae-ib {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Icon positions */
+.pkae-ib--icon-left  { flex-direction: row; align-items: flex-start; }
+.pkae-ib--icon-right { flex-direction: row-reverse; align-items: flex-start; }
+.pkae-ib--icon-top   { flex-direction: column; align-items: center; }
+
+/* Icon wrap */
+.pkae-ib__icon-wrap { flex-shrink: 0; }
+
+.pkae-ib__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all .3s ease;
+}
+.pkae-ib__icon i   { line-height: 1; }
+.pkae-ib__icon svg { display: block; }
+.pkae-ib__icon img { display: block; width: 80px; height: auto; }
+.pkae-ib__icon-text { font-weight: 700; line-height: 1; }
+
+/* Content */
+.pkae-ib__content { flex: 1; }
+
+.pkae-ib--icon-left  .pkae-ib__content,
+.pkae-ib--icon-right .pkae-ib__content { padding-left: 1rem; }
+.pkae-ib--icon-right .pkae-ib__content { padding-left: 0; padding-right: 1rem; }
+
+/* Prefix */
+.pkae-ib__prefix {
+  display: block;
+  font-size: .85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .35em;
+  opacity: .7;
+}
+
+/* Title */
+.pkae-ib__title { margin: 0 0 .5em; line-height: 1.3; }
+
+/* Desc */
+.pkae-ib__desc { margin: 0 0 1em; line-height: 1.6; }
+
+/* Separator */
+.pkae-ib__sep {
+  display: block;
+  width: 40px;
+  border-top: 2px solid currentColor;
+  margin: .75em auto;
+}
+.pkae-ib--icon-left  .pkae-ib__sep,
+.pkae-ib--icon-right .pkae-ib__sep { margin-left: 0; }
+
+/* CTA */
+.pkae-ib__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  text-decoration: none;
+  transition: all .25s;
+  cursor: pointer;
+}
+.pkae-ib__cta--btn {
+  padding: .5rem 1.25rem;
+  border-radius: 4px;
+  background: #6040e0;
+  color: #fff;
+  font-weight: 600;
+}
+.pkae-ib__cta--text { font-weight: 600; }
+
+/* ── Hover Animations ───────────────────────────────────────────────────── */
+.pkae-ib--anim-grow:hover   .pkae-ib__icon { transform: scale(1.15); }
+.pkae-ib--anim-shrink:hover .pkae-ib__icon { transform: scale(0.88); }
+.pkae-ib--anim-rotate:hover .pkae-ib__icon { transform: rotate(15deg); }
+.pkae-ib--anim-float:hover  .pkae-ib__icon { transform: translateY(-6px); }
+.pkae-ib--anim-bounce:hover .pkae-ib__icon { animation: pkae-ib-bounce .4s ease; }
+
+@keyframes pkae-ib-bounce {
+  0%,100% { transform: translateY(0); }
+  40%     { transform: translateY(-10px); }
+  70%     { transform: translateY(-5px); }
+}
+
+/* ── Badge ──────────────────────────────────────────────────────────────── */
+.pkae-ib { position: relative; overflow: hidden; }
+
+.pkae-ib__badge {
+  position: absolute;
+  font-size: .75rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #e74c3c;
+  color: #fff;
+  z-index: 2;
+  white-space: nowrap;
+}
+.pkae-ib__badge--top-right    { top: 12px; right: 12px; }
+.pkae-ib__badge--top-left     { top: 12px; left: 12px; }
+.pkae-ib__badge--bottom-right { bottom: 12px; right: 12px; }
+.pkae-ib__badge--bottom-left  { bottom: 12px; left: 12px; }
+
+/* ── Ribbon ─────────────────────────────────────────────────────────────── */
+.pkae-ib__ribbon {
+  position: absolute;
+  top: 18px;
+  font-size: .75rem;
+  font-weight: 700;
+  color: #fff;
+  background: #6040e0;
+  padding: 4px 28px;
+  white-space: nowrap;
+  z-index: 2;
+  transform: rotate(45deg);
+  transform-origin: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+}
+.pkae-ib--ribbon-right .pkae-ib__ribbon {
+  right: -22px;
+  transform: rotate(45deg);
+}
+.pkae-ib--ribbon-left .pkae-ib__ribbon {
+  left: -22px;
+  transform: rotate(-45deg);
+}
+
+/* ── Alignment ──────────────────────────────────────────────────────────── */
+
+/* Top layout: align-items controls icon+content horizontal alignment */
+.pkae-ib-align-left   .pkae-ib--icon-top { align-items: flex-start; }
+.pkae-ib-align-center .pkae-ib--icon-top { align-items: center; }
+.pkae-ib-align-right  .pkae-ib--icon-top { align-items: flex-end; }
+
+/* Left/Right layout: justify-content moves the whole row */
+.pkae-ib-align-left   .pkae-ib--icon-left,
+.pkae-ib-align-left   .pkae-ib--icon-right  { justify-content: flex-start; }
+.pkae-ib-align-center .pkae-ib--icon-left,
+.pkae-ib-align-center .pkae-ib--icon-right  { justify-content: center; }
+.pkae-ib-align-right  .pkae-ib--icon-left,
+.pkae-ib-align-right  .pkae-ib--icon-right  { justify-content: flex-end; }
+
+/* Left/Right layout: content flex shrink so it doesn't stretch */
+.pkae-ib--icon-left  .pkae-ib__content,
+.pkae-ib--icon-right .pkae-ib__content { flex: 0 1 auto; }
+
+/* Separator alignment */
+.pkae-ib-align-left   .pkae-ib__sep { margin-left: 0; margin-right: auto; }
+.pkae-ib-align-center .pkae-ib__sep { margin-left: auto; margin-right: auto; }
+.pkae-ib-align-right  .pkae-ib__sep { margin-left: auto; margin-right: 0; }
+
+/* CTA alignment */
+.pkae-ib-align-left   .pkae-ib__cta { display: inline-flex; }
+.pkae-ib-align-center .pkae-ib__cta { display: inline-flex; }
+.pkae-ib-align-right  .pkae-ib__cta { display: inline-flex; }

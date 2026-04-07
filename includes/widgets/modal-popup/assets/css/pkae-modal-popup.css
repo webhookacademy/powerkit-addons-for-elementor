@@ -1,0 +1,146 @@
+/* ── Modal Popup ─────────────────────────────────────────────────────────── */
+
+/* Trigger */
+.pkae-mp__trigger-wrap { display: inline-block; }
+
+.pkae-mp__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  transition: all .25s;
+}
+.pkae-mp__trigger--btn {
+  padding: .6rem 1.5rem;
+  background: #6040e0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.pkae-mp__trigger--btn:hover { background: #4f32c0; }
+.pkae-mp__trigger--text { color: #6040e0; font-weight: 600; text-decoration: underline; }
+.pkae-mp__trigger--icon { font-size: 1.5rem; color: #6040e0; background: none; border: none; padding: 0; }
+.pkae-mp__trigger--icon i   { font-size: inherit; line-height: 1; }
+.pkae-mp__trigger--icon svg { width: 1em; height: 1em; display: block; fill: currentColor; }
+.pkae-mp__trigger--img img { display: block; max-width: 200px; cursor: pointer; }
+
+/* Overlay */
+.pkae-mp__overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.pkae-mp__overlay.pkae-mp--open {
+  display: flex;
+}
+
+/* Modal box */
+.pkae-mp__modal {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow: visible;
+  z-index: 99999;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+
+/* Modal body handles scroll */
+.pkae-mp__body {
+  overflow-y: auto;
+  max-height: calc(90vh - 120px);
+}
+
+/* Header */
+.pkae-mp__header {
+  padding: 20px 30px;
+  border-bottom: 1px solid #eee;
+}
+.pkae-mp__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+/* Body */
+.pkae-mp__body { padding: 30px; }
+
+/* Close button — position handled via inline style from PHP */
+.pkae-mp__close {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: all .2s;
+  z-index: 10;
+  line-height: 1;
+}
+
+/* Video */
+.pkae-mp__video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+.pkae-mp__video-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ── Appear Effects ─────────────────────────────────────────────────────── */
+.pkae-mp__modal {
+  opacity: 0;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.pkae-mp--open .pkae-mp__modal { opacity: 1; }
+
+/* Fade */
+.pkae-mp__effect-fade { transform: none; }
+
+/* Slide Up */
+.pkae-mp__effect-slide-up { transform: translateY(40px); }
+.pkae-mp--open .pkae-mp__effect-slide-up { transform: translateY(0); }
+
+/* Slide Down */
+.pkae-mp__effect-slide-down { transform: translateY(-40px); }
+.pkae-mp--open .pkae-mp__effect-slide-down { transform: translateY(0); }
+
+/* Zoom In */
+.pkae-mp__effect-zoom-in { transform: scale(0.8); }
+.pkae-mp--open .pkae-mp__effect-zoom-in { transform: scale(1); }
+
+/* Zoom Out */
+.pkae-mp__effect-zoom-out { transform: scale(1.2); }
+.pkae-mp--open .pkae-mp__effect-zoom-out { transform: scale(1); }
+
+/* Flip */
+.pkae-mp__effect-flip { transform: perspective(600px) rotateX(-20deg); }
+.pkae-mp--open .pkae-mp__effect-flip { transform: perspective(600px) rotateX(0); }
+
+/* Preview mode in editor */
+.pkae-mp__overlay.pkae-mp--preview {
+  display: flex;
+  position: relative;
+  inset: auto;
+  z-index: 1;
+  padding: 0;
+  margin-top: 10px;
+}
+.pkae-mp--preview .pkae-mp__modal { opacity: 1; transform: none; }

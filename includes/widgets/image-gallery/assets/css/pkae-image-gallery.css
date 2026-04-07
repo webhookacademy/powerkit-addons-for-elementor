@@ -1,0 +1,129 @@
+/* ── Image Gallery ──────────────────────────────────────────────────────── */
+
+/* Filter */
+.pkae-ig__filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.pkae-ig__filter-btn {
+  border: none;
+  cursor: pointer;
+  font-size: .9rem;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: #f0f0f0;
+  color: #333;
+  transition: background .25s, color .25s;
+}
+.pkae-ig__filter-btn.pkae-active,
+.pkae-ig__filter-btn:hover { background: #6040e0; color: #fff; }
+
+/* Grid */
+.pkae-ig__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--pkae-ig-cols, 3), 1fr);
+  gap: var(--pkae-ig-gap, 10px);
+}
+
+/* Masonry via CSS columns */
+.pkae-ig--masonry .pkae-ig__grid {
+  display: block;
+  column-count: var(--pkae-ig-cols, 3);
+  column-gap: var(--pkae-ig-gap, 10px);
+}
+.pkae-ig--masonry .pkae-ig__item {
+  break-inside: avoid;
+  margin-bottom: var(--pkae-ig-gap, 10px);
+}
+
+/* Item */
+.pkae-ig__item-wrap {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+/* Grid aspect ratio */
+.pkae-ig--grid .pkae-ig__item-img {
+  width: 100%;
+  display: block;
+  aspect-ratio: var(--pkae-ig-ratio, 1/1);
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+/* Masonry: natural height */
+.pkae-ig--masonry .pkae-ig__item-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform .4s ease;
+}
+
+/* Hover animations */
+.pkae-ig--hover-zoom-in  .pkae-ig__item-wrap:hover .pkae-ig__item-img { transform: scale(1.08); }
+.pkae-ig--hover-zoom-out .pkae-ig__item-img { transform: scale(1.08); }
+.pkae-ig--hover-zoom-out .pkae-ig__item-wrap:hover .pkae-ig__item-img { transform: scale(1); }
+
+/* Overlay */
+.pkae-ig__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.pkae-ig__item-wrap:hover .pkae-ig__overlay { opacity: 1; }
+
+/* Slide-up overlay */
+.pkae-ig--hover-slide-up .pkae-ig__overlay {
+  transform: translateY(100%);
+  opacity: 1;
+  transition: transform .35s ease;
+}
+.pkae-ig--hover-slide-up .pkae-ig__item-wrap:hover .pkae-ig__overlay { transform: translateY(0); }
+
+.pkae-ig__overlay-icon { display: flex; align-items: center; line-height: 1; }
+.pkae-ig__overlay-icon i   { font-size: 24px; color: #fff; }
+.pkae-ig__overlay-icon svg { width: 24px; height: 24px; fill: #fff; }
+
+.pkae-ig__caption { color: #fff; font-size: .9rem; text-align: center; padding: 0 1rem; }
+
+/* Lightbox overlay */
+.pkae-ig-lb-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.92);
+  z-index: 99999; display: flex; align-items: center; justify-content: center;
+}
+.pkae-ig-lb-inner { position: relative; max-width: 90vw; max-height: 90vh; }
+.pkae-ig-lb-inner img { max-width: 90vw; max-height: 80vh; display: block; border-radius: 4px; }
+.pkae-ig-lb-caption { color: #ddd; text-align: center; margin-top: .75rem; font-size: .95rem; }
+.pkae-ig-lb-close {
+  background: none; border: none; color: #fff;
+  font-size: 1.8rem; cursor: pointer; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.pkae-ig-lb-prev, .pkae-ig-lb-next {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.15); border: none; color: #fff;
+  font-size: 2rem; cursor: pointer; padding: .5rem 1rem; border-radius: 4px;
+  transition: background .2s;
+}
+.pkae-ig-lb-prev:hover, .pkae-ig-lb-next:hover { background: rgba(255,255,255,.3); }
+.pkae-ig-lb-prev { left: 1rem; }
+.pkae-ig-lb-next { right: 1rem; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .pkae-ig__grid { grid-template-columns: repeat(var(--pkae-ig-cols-t, 2), 1fr); }
+  .pkae-ig--masonry .pkae-ig__grid { column-count: var(--pkae-ig-cols-t, 2); }
+}
+@media (max-width: 767px) {
+  .pkae-ig__grid { grid-template-columns: repeat(var(--pkae-ig-cols-m, 1), 1fr); }
+  .pkae-ig--masonry .pkae-ig__grid { column-count: var(--pkae-ig-cols-m, 1); }
+}

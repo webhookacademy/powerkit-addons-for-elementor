@@ -14,7 +14,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		 * Creates a single Instance of self
 		 *
 		 * @var Static data - Define menu main menu name
-		 * @since 1.0.1
+		 * @since 1.0.2
 		 */
 		private static $_instance = null;
 
@@ -22,7 +22,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		 * Define All Actions
 		 *
 		 * @var Static data - Define all actions
-		 * @since 1.0.1
+		 * @since 1.0.2
 		 */
 		static $element_pro_actions = null;
 
@@ -31,7 +31,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		 * Creates and returns the main object for this plugin
 		 *
 		 *
-		 * @since  1.0.1
+		 * @since  1.0.2
 		 * @return PKAE_Library_Manager
 		 */
 		static public function init() {
@@ -47,7 +47,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		 * Main Constructor that sets up all static data associated with this plugin.
 		 *
 		 *
-		 * @since  1.0.1
+		 * @since  1.0.2
 		 *
 		 */
 		private function __construct() {
@@ -70,7 +70,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		 * The whole idea of the singleton design pattern is that there is a single
 		 * object therefore, we don't want the object to be cloned.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.2
 		 * @return void
 		 */
 		public function __clone() {
@@ -78,7 +78,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 			_doing_it_wrong(
 				__FUNCTION__,
 				esc_html__( 'Cheatin&#8217; huh?', 'powerkit-addons-for-elementor' ),
-				'1.0.1'
+				'1.0.2'
 			);
 
 		}
@@ -86,7 +86,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		/**
 		 * Disable unserializing of the class
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.2
 		 * @return void
 		 */
 		public function __wakeup() {
@@ -94,7 +94,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 			_doing_it_wrong(
 				__FUNCTION__,
 				esc_html__( 'Cheatin&#8217; huh?', 'powerkit-addons-for-elementor' ),
-				'1.0.1'
+				'1.0.2'
 			);
 
 		}
@@ -102,7 +102,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		/**
 		 * Get templates from the json library
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.2
 		 * @return void
 		 */
 		public function get_pkae_templates_library_view() {
@@ -168,7 +168,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		/**
 		 * Get templates themes
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.2
 		 * @return void
 		 */
 		public function get_template_filter_options_values( $data ) {
@@ -197,7 +197,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		/**
 		 * Get  ajax preview template
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.2
 		 * @return void
 		 */
 		public function ajax_get_pkae_preview() {
@@ -251,7 +251,7 @@ if ( !class_exists( 'PKAE_Library_Manager' ) ) {
 		/**
 		 * Get an instance of WP_Filesystem_Direct.
 		 *
-		 * @since 1.0.1
+		 * @since 1.0.2
 		 * @return object A WP_Filesystem_Direct instance.
 		 */
 		public static function get_filesystem() {

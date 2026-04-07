@@ -4,7 +4,7 @@ Author URI:        https://webhookacademy.com/
 Requires at least: 6.0
 Requires PHP:      7.4
 Tested up to:      6.9
-Stable tag:        1.0.1
+Stable tag:        1.0.2
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Tags:              elementor, page builder, template gallery, kit library, powerkit addons
@@ -60,6 +60,12 @@ fully responsive web pages in minutes — all without writing a single line of c
 = Content =
 
 * **Advanced Heading** – A powerful heading widget with sub heading, description, separator (line / line+icon / line+image / line+text), highlighted text via `<mark>` tag, background watermark text, and complete typography & style controls.
+* **Business Hours** – Display business opening hours with day/time repeater, closed toggle, auto-highlight today, open/closed badge, custom closed label per row, icon support, and full style controls.
+* **Content Toggle** – Switch between two content sections with smooth animation. Supports text/HTML repeater items (icon, image, title, description, button) or saved templates. Includes autoplay, loop, grid columns, and full style controls.
+* **Google Map** – Embed Google Maps via iframe embed code or API key. API mode supports multiple markers, map type, zoom, custom style JSON, and all map controls.
+* **Image Gallery** – Filterable image gallery with Grid and Masonry layouts, lightbox with navigation, hover overlay, caption, CSS filters, and full style controls.
+* **Info Box** – Multi-purpose info box with icon/image/text, title prefix, separator, CTA (text/button/complete box), badge, ribbon, hover animations, and complete style controls.
+* **Modal Popup** – Feature-rich popup widget with multiple content types (text, photo, YouTube, Vimeo, template, iFrame), trigger options (button, text, icon, image, auto, exit intent), cookie support, appear animations, and full style controls.
 
 == Installation Guide ==
 
@@ -101,6 +107,9 @@ Yes. This plugin works with any theme that supports Elementor, including popular
 We regularly release updates with new widgets, templates, and features to keep your designs fresh and your workflow efficient.
 
 == Changelog ==
+
+= 1.0.2 =
+1. **Added**: 6 new advanced widgets — **Business Hours**, **Content Toggle**, **Google Map**, **Image Gallery**, **Info Box**, and **Modal Popup**. All widgets come with full style controls, responsive support, and advanced features beyond standard Elementor offerings.
 
 = 1.0.1 =
 1. **Updated**: Updated the plugin security and increased plugin performance.
