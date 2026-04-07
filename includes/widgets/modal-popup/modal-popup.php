@@ -496,7 +496,37 @@ class Modal_Popup extends Widget_Base {
 		$this->start_controls_section( 'section_style_trigger', [
 			'label'     => esc_html__( 'Trigger Button', 'powerkit-addons-for-elementor' ),
 			'tab'       => Controls_Manager::TAB_STYLE,
-			'condition' => [ 'trigger_type' => [ 'button', 'text', 'icon' ] ],
+			'condition' => [ 'trigger_type' => [ 'button', 'text', 'icon', 'image' ] ],
+		] );
+
+		$this->add_responsive_control( 'trigger_alignment', [
+			'label'     => esc_html__( 'Alignment', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::CHOOSE,
+			'options'   => [
+				'flex-start' => [ 'title' => 'Left',   'icon' => 'eicon-text-align-left' ],
+				'center'     => [ 'title' => 'Center', 'icon' => 'eicon-text-align-center' ],
+				'flex-end'   => [ 'title' => 'Right',  'icon' => 'eicon-text-align-right' ],
+			],
+			'default'   => 'flex-start',
+			'selectors' => [ '{{WRAPPER}} .pkae-mp__trigger-wrap' => 'display: flex; justify-content: {{VALUE}};' ],
+		] );
+
+		$this->add_responsive_control( 'trigger_img_width', [
+			'label'      => esc_html__( 'Image Width', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px', '%', 'em', 'rem' ],
+			'range'      => [ 'px' => [ 'min' => 10, 'max' => 800 ], '%' => [ 'min' => 1, 'max' => 100 ] ],
+			'condition'  => [ 'trigger_type' => 'image' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mp__trigger--img img' => 'width: {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}};' ],
+		] );
+
+		$this->add_responsive_control( 'trigger_img_height', [
+			'label'      => esc_html__( 'Image Height', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px', 'em', 'rem' ],
+			'range'      => [ 'px' => [ 'min' => 10, 'max' => 800 ] ],
+			'condition'  => [ 'trigger_type' => 'image' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mp__trigger--img img' => 'height: {{SIZE}}{{UNIT}}; object-fit: cover;' ],
 		] );
 
 		$this->add_responsive_control( 'trigger_icon_size', [
