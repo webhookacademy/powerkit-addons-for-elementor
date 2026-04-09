@@ -1,0 +1,131 @@
+/* ── Video Widget ───────────────────────────────────────────────────────── */
+
+.pkae-video-wrap {
+  position: relative;
+  width: 100%;
+  height: 0; /* REQUIRED: padding-bottom creates the height */
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+  display: block;
+}
+
+/* Iframe / video fill */
+.pkae-video-iframe,
+.pkae-video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Facade */
+.pkae-video-facade {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Thumbnail */
+.pkae-video-thumbnail {
+  position: absolute;
+  inset: 0;
+}
+.pkae-video-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.pkae-video-facade:hover .pkae-video-thumbnail img { transform: scale(1.04); }
+
+/* Overlay */
+.pkae-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0.3;
+  transition: opacity .3s;
+}
+.pkae-video-facade:hover .pkae-video-overlay { opacity: 0.5; }
+
+/* Play button */
+.pkae-video-play {
+  position: relative;
+  z-index: 2;
+  width: 72px;
+  height: 72px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .3s, transform .3s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.pkae-video-play i   { font-size: 28px; line-height: 1; }
+.pkae-video-play svg { width: 28px; height: 28px; fill: currentColor; display: block; }
+.pkae-video-play:hover { background: rgba(255,255,255,0.35); }
+
+/* Outline style */
+.pkae-video-play--outline {
+  background: transparent;
+  border: 3px solid rgba(255,255,255,0.8);
+}
+.pkae-video-play--outline:hover { background: rgba(255,255,255,0.15); }
+
+/* Square style */
+.pkae-video-play--square { border-radius: 12px !important; }
+
+/* Animations */
+.pkae-video-play--pulse { animation: pkae-pulse 2s infinite; }
+@keyframes pkae-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+  50%      { box-shadow: 0 0 0 16px rgba(255,255,255,0); }
+}
+
+/* Grow — disable pulse when grow is active */
+.pkae-video-play--grow  { animation: none !important; }
+.pkae-video-play--grow:hover  { transform: scale(1.15) !important; }
+
+/* Shake — disable pulse when shake is active */
+.pkae-video-play--shake { animation: none !important; }
+.pkae-video-play--shake:hover { animation: pkae-shake .4s ease !important; transform: none; }
+@keyframes pkae-shake {
+  0%,100% { transform: rotate(0); }
+  25%     { transform: rotate(-8deg); }
+  75%     { transform: rotate(8deg); }
+}
+
+/* None */
+.pkae-video-play--none { animation: none; }
+
+/* Caption */
+.pkae-video-caption {
+  font-size: .9rem;
+  color: #555;
+  padding: 8px 0;
+}
+.pkae-video-caption--overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 12px 16px;
+  background: linear-gradient(transparent, rgba(0,0,0,.7));
+  color: #fff;
+}
+
+/* ── Video Widget end ───────────────────────────────────────────────────── */

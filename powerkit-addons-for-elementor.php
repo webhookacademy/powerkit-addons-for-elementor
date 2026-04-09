@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       PowerKit Addons For Elementor
  * Description:       A plugin that provides a collection of Elementor Templates (Pages, Sections, Block) created by the powerkit team
- * Version:           1.0.3
+ * Version:           1.0.4
  * Author:            Webhook Academy
  * Author URI:        https://webhookacademy.com/
  * plugin URI:        https://webhookacademy.com/plugin/powerkit-addons-for-elementor/
@@ -51,10 +51,7 @@ final class PKAE_Elementor_PowerKit_Addons {
 		add_action( 'admin_menu', array( $this, 'register_admin_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'pkae_enqueue_admin_assets' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'pkae_enqueue_admin_global_css' ), 99 );
-
 		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
-		add_action( 'wp_ajax_pkae_load_posts', array( $this, 'ajax_load_posts' ) );
-		add_action( 'wp_ajax_nopriv_pkae_load_posts', array( $this, 'ajax_load_posts' ) );
 	}
 
 	public function on_plugins_loaded() {
@@ -128,6 +125,7 @@ final class PKAE_Elementor_PowerKit_Addons {
 	}
 
 	public function includes() {
+		include_once PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/ajax-handlers.php';
 		include_once PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/powerkit-elementor-widgets.php';
 		include_once PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/powerkit-template-manager.php';
 	}
@@ -162,6 +160,17 @@ final class PKAE_Elementor_PowerKit_Addons {
 		wp_add_inline_script(
 			'jquery',
 			'window.pkaePostsAjax = ' . wp_json_encode( $data ) . ';',
+			'after'
+		);
+		
+		// Add search AJAX data
+		$search_data = [
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'pkae_search_nonce' ),
+		];
+		wp_add_inline_script(
+			'jquery',
+			'window.pkaeSearchData = ' . wp_json_encode( $search_data ) . ';',
 			'after'
 		);
 	}
@@ -222,45 +231,6 @@ final class PKAE_Elementor_PowerKit_Addons {
 				'nonce'   => wp_create_nonce( 'pkae_posts_nonce' ),
 			]
 		);
-	}
-
-	public function ajax_load_posts() {
-		check_ajax_referer( 'pkae_posts_nonce', 'nonce' );
-
-		$widget_id = isset( $_POST['widget_id'] ) ? sanitize_text_field( wp_unslash( $_POST['widget_id'] ) ) : '';
-		$page      = isset( $_POST['page'] ) ? (int) $_POST['page'] : 1;
-
-		// Get widget settings from Elementor
-		$post_id = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
-
-		// Fallback: basic query with page
-		$args = [
-			'post_type'      => 'post',
-			'posts_per_page' => 6,
-			'paged'          => $page,
-			'post_status'    => 'publish',
-		];
-
-		$query = new \WP_Query( $args );
-		$html  = '';
-
-		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$html .= '<article class="pkae-posts__item">';
-				if ( has_post_thumbnail() ) {
-					$html .= '<div class="pkae-posts__img" style="height:220px;"><a href="' . esc_url( get_permalink() ) . '">' . get_the_post_thumbnail( null, 'medium_large' ) . '</a></div>';
-				}
-				$html .= '<div class="pkae-posts__content">';
-				$html .= '<h3 class="pkae-posts__title"><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h3>';
-				$html .= '<p class="pkae-posts__excerpt">' . esc_html( wp_trim_words( get_the_excerpt(), 20 ) ) . '</p>';
-				$html .= '<a class="pkae-posts__cta" href="' . esc_url( get_permalink() ) . '">' . esc_html__( 'Read More', 'powerkit-addons-for-elementor' ) . '</a>';
-				$html .= '</div></article>';
-			}
-			wp_reset_postdata();
-		}
-
-		wp_send_json_success( [ 'html' => $html ] );
 	}
 
 	public function is_compatible() {

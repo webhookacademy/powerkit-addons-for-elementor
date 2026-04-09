@@ -4,7 +4,7 @@ Author URI:        https://webhookacademy.com/
 Requires at least: 6.0
 Requires PHP:      7.4
 Tested up to:      6.9
-Stable tag:        1.0.3
+Stable tag:        1.0.4
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Tags:              elementor, page builder, template gallery, kit library, powerkit addons
@@ -53,7 +53,7 @@ fully responsive web pages in minutes — all without writing a single line of c
 
 == Widgets ==
 
-**10 powerful widgets available now — and more are on the way! Each update brings new widgets packed with advanced controls. Stay tuned and keep the plugin updated to unlock the full potential of your Elementor designs.**
+**15 powerful widgets available now — and more are on the way! Each update brings new widgets packed with advanced controls. Stay tuned and keep the plugin updated to unlock the full potential of your Elementor designs.**
 
 = Sliders & Carousels =
 
@@ -62,6 +62,7 @@ fully responsive web pages in minutes — all without writing a single line of c
 = Content =
 
 * **Advanced Heading** – A powerful heading widget with sub heading, description, separator (line / line+icon / line+image / line+text), highlighted text via `<mark>` tag, background watermark text, and complete typography & style controls.
+* **Advanced Search** – Live AJAX search widget with two layouts (List/Grid), featured images, custom search & close icons, multiple post types support, excerpt/date/post type display, debounce search, and complete style controls for all elements.
 * **Business Hours** – Display business opening hours with day/time repeater, closed toggle, auto-highlight today, open/closed badge, custom closed label per row, icon support, and full style controls.
 * **Content Toggle** – Switch between two content sections with smooth animation. Supports text/HTML repeater items (icon, image, title, description, button) or saved templates. Includes autoplay, loop, grid columns, and full style controls.
 * **Google Map** – Embed Google Maps via iframe embed code or API key. API mode supports multiple markers, map type, zoom, custom style JSON, and all map controls.
@@ -70,6 +71,10 @@ fully responsive web pages in minutes — all without writing a single line of c
 * **Modal Popup** – Feature-rich popup widget with multiple content types (text, photo, YouTube, Vimeo, template, iFrame), trigger options (button, text, icon, image, auto, exit intent), cookie support, appear animations, and full style controls.
 * **Posts** – Advanced posts widget with powerful query builder, multiple skins (Classic, Card, Overlay, List), Grid/Masonry layouts, filterable tabs, AJAX Load More/Infinite Scroll pagination, and complete style controls.
 * **Price List** – Premium price list widget with repeater items (image/icon, title, description, price, original price, badge, link), multiple layouts (List/Grid), image positions (Top/Left/Right), price position control, content alignment, and full style controls.
+* **SVG Animator** – Advanced SVG animation widget with Draw/Fill/Scale/Rotate/Fade/Slide animations, multiple triggers (load/viewport/hover/click), sequential/together path animation, loop/yoyo/replay options, box styling, and complete style controls.
+* **Table** – Feature-rich table widget with sortable columns, searchable content, CSV import, responsive mobile view (stack/scroll), row striping, hover effects, and complete style controls.
+* **Video** – Advanced video player with YouTube/Vimeo/Self-hosted support, custom play button, lightbox mode, sticky video, video overlay, schema markup, and complete style controls.
+* **Video Gallery** – Video gallery widget with Grid/Masonry layouts, filterable categories, lightbox with custom close button (icon, size, colors, position), video overlay, play button customization, and complete style controls.
 
 == Installation Guide ==
 
@@ -111,6 +116,10 @@ Yes. This plugin works with any theme that supports Elementor, including popular
 We regularly release updates with new widgets, templates, and features to keep your designs fresh and your workflow efficient.
 
 == Changelog ==
+
+= 1.0.4 =
+1. **Added**: 5 new advanced widgets — **Advanced Search** (live AJAX search with list/grid layouts), **SVG Animator** (advanced SVG animations with multiple triggers), **Table** (sortable, searchable with CSV import), **Video** (YouTube/Vimeo/Self-hosted with lightbox), and **Video Gallery** (filterable video gallery with custom lightbox).
+2. **Enhanced**: All new widgets include complete style controls, responsive support, and advanced features beyond standard Elementor offerings.
 
 = 1.0.3 =
 1. **Added**: 2 new advanced widgets — **Posts** (query builder, skins, filterable tabs, AJAX pagination) and **Price List** (repeater items, multiple layouts, image positions, price position control).

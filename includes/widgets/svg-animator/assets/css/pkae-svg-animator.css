@@ -1,0 +1,116 @@
+/* ── SVG Animator ──────────────────────────────────────────────────────── */
+
+.pkae-svg-animator {
+  display: inline-block;
+  position: relative;
+}
+
+.pkae-svg-animator svg {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+}
+
+.pkae-svg-animator svg path,
+.pkae-svg-animator svg line,
+.pkae-svg-animator svg polyline,
+.pkae-svg-animator svg polygon,
+.pkae-svg-animator svg circle,
+.pkae-svg-animator svg ellipse,
+.pkae-svg-animator svg rect {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Draw animation initial state */
+.pkae-svg-animator[data-animation-type="draw"] svg path,
+.pkae-svg-animator[data-animation-type="draw"] svg line,
+.pkae-svg-animator[data-animation-type="draw"] svg polyline,
+.pkae-svg-animator[data-animation-type="draw"] svg polygon,
+.pkae-svg-animator[data-animation-type="draw"] svg circle,
+.pkae-svg-animator[data-animation-type="draw"] svg ellipse {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Fill animation initial state */
+.pkae-svg-animator[data-animation-type="fill"] svg path,
+.pkae-svg-animator[data-animation-type="fill"] svg polygon,
+.pkae-svg-animator[data-animation-type="fill"] svg circle,
+.pkae-svg-animator[data-animation-type="fill"] svg ellipse,
+.pkae-svg-animator[data-animation-type="fill"] svg rect {
+  fill-opacity: 0;
+}
+
+/* Scale animation initial state */
+.pkae-svg-animator[data-animation-type="scale"] svg {
+  transform: scale(0);
+  transform-origin: center;
+}
+
+/* Rotate animation initial state */
+.pkae-svg-animator[data-animation-type="rotate"] svg {
+  transform: rotate(0deg);
+  transform-origin: center;
+}
+
+/* Fade animation initial state */
+.pkae-svg-animator[data-animation-type="fade"] svg {
+  opacity: 0;
+}
+
+/* Slide animation initial state */
+.pkae-svg-animator[data-animation-type="slide"] svg {
+  transform: translateY(50px);
+  opacity: 0;
+}
+
+/* Animated state */
+.pkae-svg-animator.pkae-animated[data-animation-type="draw"] svg path,
+.pkae-svg-animator.pkae-animated[data-animation-type="draw"] svg line,
+.pkae-svg-animator.pkae-animated[data-animation-type="draw"] svg polyline,
+.pkae-svg-animator.pkae-animated[data-animation-type="draw"] svg polygon,
+.pkae-svg-animator.pkae-animated[data-animation-type="draw"] svg circle,
+.pkae-svg-animator.pkae-animated[data-animation-type="draw"] svg ellipse {
+  stroke-dashoffset: 0;
+}
+
+.pkae-svg-animator.pkae-animated[data-animation-type="fill"] svg path,
+.pkae-svg-animator.pkae-animated[data-animation-type="fill"] svg polygon,
+.pkae-svg-animator.pkae-animated[data-animation-type="fill"] svg circle,
+.pkae-svg-animator.pkae-animated[data-animation-type="fill"] svg ellipse,
+.pkae-svg-animator.pkae-animated[data-animation-type="fill"] svg rect {
+  fill-opacity: 1;
+}
+
+.pkae-svg-animator.pkae-animated[data-animation-type="scale"] svg {
+  transform: scale(1);
+}
+
+.pkae-svg-animator.pkae-animated[data-animation-type="rotate"] svg {
+  transform: rotate(360deg);
+}
+
+.pkae-svg-animator.pkae-animated[data-animation-type="fade"] svg {
+  opacity: 1;
+}
+
+.pkae-svg-animator.pkae-animated[data-animation-type="slide"] svg {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Placeholder */
+.pkae-svg-animator-placeholder {
+  padding: 40px;
+  text-align: center;
+  background: #f5f5f5;
+  border: 2px dashed #ddd;
+  color: #999;
+  font-size: 14px;
+}
+
+/* Cursor pointer for clickable */
+.pkae-svg-animator[data-replay-click="yes"] {
+  cursor: pointer;
+}
