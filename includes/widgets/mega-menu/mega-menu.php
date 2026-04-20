@@ -84,9 +84,47 @@ private function get_post_types() {
 		] );
 		$this->add_control( 'dropdown_trigger', [ 'label' => esc_html__( 'Dropdown Trigger', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::SELECT, 'options' => [ 'hover' => esc_html__( 'Hover', 'powerkit-addons-for-elementor' ), 'click' => esc_html__( 'Click', 'powerkit-addons-for-elementor' ) ], 'default' => 'hover' ] );
 		$this->add_control( 'dropdown_animation', [ 'label' => esc_html__( 'Dropdown Animation', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::SELECT, 'options' => [ 'slide' => esc_html__( 'Slide', 'powerkit-addons-for-elementor' ), 'fade' => esc_html__( 'Fade', 'powerkit-addons-for-elementor' ), 'zoom' => esc_html__( 'Zoom', 'powerkit-addons-for-elementor' ) ], 'default' => 'slide' ] );
+		$this->add_control( 'dropdown_indicator_icon', [
+			'label'       => esc_html__( 'Dropdown Indicator Icon', 'powerkit-addons-for-elementor' ),
+			'type'        => Controls_Manager::ICONS,
+			'default'     => [
+				'value'   => 'fas fa-chevron-down',
+				'library' => 'fa-solid',
+			],
+			'recommended' => [
+				'fa-solid' => [ 'chevron-down', 'angle-down', 'caret-down', 'arrow-down' ],
+			],
+		] );
 		$this->add_control( 'mobile_heading', [ 'label' => esc_html__( 'Mobile Settings', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
 		$this->add_control( 'mobile_breakpoint', [ 'label' => esc_html__( 'Mobile Breakpoint (px)', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::NUMBER, 'default' => 1024, 'min' => 320, 'max' => 1920, 'description' => esc_html__( 'Below this width the hamburger menu appears.', 'powerkit-addons-for-elementor' ) ] );
 		$this->add_control( 'show_hamburger', [ 'label' => esc_html__( 'Show Hamburger Button', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::SWITCHER, 'return_value' => 'yes', 'default' => 'yes', 'condition' => [ 'menu_layout' => 'horizontal' ] ] );
+		
+		$this->add_control( 'hamburger_open_icon', [
+			'label'       => esc_html__( 'Hamburger Open Icon', 'powerkit-addons-for-elementor' ),
+			'type'        => Controls_Manager::ICONS,
+			'default'     => [
+				'value'   => 'fas fa-bars',
+				'library' => 'fa-solid',
+			],
+			'recommended' => [
+				'fa-solid' => [ 'bars', 'align-justify', 'grip-lines', 'stream' ],
+			],
+			'condition'   => [ 'menu_layout' => 'horizontal', 'show_hamburger' => 'yes' ],
+		] );
+		
+		$this->add_control( 'hamburger_close_icon', [
+			'label'       => esc_html__( 'Hamburger Close Icon', 'powerkit-addons-for-elementor' ),
+			'type'        => Controls_Manager::ICONS,
+			'default'     => [
+				'value'   => 'fas fa-times',
+				'library' => 'fa-solid',
+			],
+			'recommended' => [
+				'fa-solid' => [ 'times', 'times-circle', 'xmark', 'close' ],
+			],
+			'condition'   => [ 'menu_layout' => 'horizontal', 'show_hamburger' => 'yes' ],
+		] );
+		
 		$this->add_control( 'vertical_heading', [ 'label' => esc_html__( 'Vertical Sidebar', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before', 'condition' => [ 'menu_layout' => 'vertical' ] ] );
 		$this->add_control( 'cat_header_label', [ 'label' => esc_html__( 'Header Label', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::TEXT, 'default' => esc_html__( 'All Categories', 'powerkit-addons-for-elementor' ), 'condition' => [ 'menu_layout' => 'vertical' ] ] );
 		$this->add_control( 'cat_header_open', [ 'label' => esc_html__( 'Open by Default', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::SWITCHER, 'return_value' => 'yes', 'default' => 'yes', 'condition' => [ 'menu_layout' => 'vertical' ] ] );
@@ -145,8 +183,46 @@ private function get_post_types() {
 		$repeater->add_control( 'sub_items', [ 'label' => esc_html__( 'Sub Items', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::REPEATER, 'fields' => $sub->get_controls(), 'title_field' => '{{{ sub_label }}}', 'condition' => [ 'dropdown_type' => 'simple' ], 'default' => [ [ 'sub_label' => 'Sub Item 1', 'sub_link' => [ 'url' => '#' ] ], [ 'sub_label' => 'Sub Item 2', 'sub_link' => [ 'url' => '#' ] ] ] ] );
 		$col = new Repeater();
 		$col->add_control( 'col_heading', [ 'label' => esc_html__( 'Column Heading', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::TEXT, 'default' => esc_html__( 'Category', 'powerkit-addons-for-elementor' ), 'label_block' => true ] );
-		$col->add_control( 'col_items', [ 'label' => esc_html__( 'Links (Label|URL per line)', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::TEXTAREA, 'default' => 'Item One|#\nItem Two|#\nItem Three|#', 'rows' => 5 ] );
-		$repeater->add_control( 'mega_columns', [ 'label' => esc_html__( 'Mega Columns', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::REPEATER, 'fields' => $col->get_controls(), 'title_field' => '{{{ col_heading }}}', 'condition' => [ 'dropdown_type' => 'mega' ], 'default' => [ [ 'col_heading' => 'Furniture', 'col_items' => 'Dining Chairs|#\nCounter Stools|#\nOccasional Chairs|#' ], [ 'col_heading' => 'Accessories', 'col_items' => 'Cabinets|#\nScreens|#\nOutdoor Furniture|#' ], [ 'col_heading' => 'Lightings', 'col_items' => 'Benches|#\nDining Tables|#\nCoffee Tables|#' ], [ 'col_heading' => 'Texture Lab', 'col_items' => 'Side Tables|#\nBeside Tables|#\nLounge Chairs|#' ] ] ] );
+		
+		$col_link = new Repeater();
+		$col_link->add_control( 'link_label', [ 'label' => esc_html__( 'Label', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::TEXT, 'default' => 'Link Item', 'label_block' => true ] );
+		$col_link->add_control( 'link_url', [ 'label' => esc_html__( 'URL', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::URL, 'default' => [ 'url' => '#' ] ] );
+		$col_link->add_control( 'link_icon', [ 'label' => esc_html__( 'Icon', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::ICONS ] );
+		$col_link->add_control( 'link_image', [ 'label' => esc_html__( 'Image', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::MEDIA ] );
+		
+		$col->add_control( 'col_links', [
+			'label'       => esc_html__( 'Links', 'powerkit-addons-for-elementor' ),
+			'type'        => Controls_Manager::REPEATER,
+			'fields'      => $col_link->get_controls(),
+			'title_field' => '{{{ link_label }}}',
+			'default'     => [
+				[ 'link_label' => 'Item One', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Item Two', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Item Three', 'link_url' => [ 'url' => '#' ] ],
+			],
+		] );
+		$repeater->add_control( 'mega_columns', [ 'label' => esc_html__( 'Mega Columns', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::REPEATER, 'fields' => $col->get_controls(), 'title_field' => '{{{ col_heading }}}', 'condition' => [ 'dropdown_type' => 'mega' ], 'default' => [
+			[ 'col_heading' => 'Furniture', 'col_links' => [
+				[ 'link_label' => 'Dining Chairs', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Counter Stools', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Occasional Chairs', 'link_url' => [ 'url' => '#' ] ],
+			] ],
+			[ 'col_heading' => 'Accessories', 'col_links' => [
+				[ 'link_label' => 'Cabinets', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Screens', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Outdoor Furniture', 'link_url' => [ 'url' => '#' ] ],
+			] ],
+			[ 'col_heading' => 'Lightings', 'col_links' => [
+				[ 'link_label' => 'Benches', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Dining Tables', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Coffee Tables', 'link_url' => [ 'url' => '#' ] ],
+			] ],
+			[ 'col_heading' => 'Texture Lab', 'col_links' => [
+				[ 'link_label' => 'Side Tables', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Beside Tables', 'link_url' => [ 'url' => '#' ] ],
+				[ 'link_label' => 'Lounge Chairs', 'link_url' => [ 'url' => '#' ] ],
+			] ],
+		] ] );
 		$repeater->add_control( 'mega_image', [ 'label' => esc_html__( 'Mega Panel Image', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::MEDIA, 'condition' => [ 'dropdown_type' => 'mega' ] ] );
 		$repeater->add_control( 'mega_promo_text', [ 'label' => esc_html__( 'Promo Bar Text', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::TEXT, 'condition' => [ 'dropdown_type' => 'mega' ] ] );
 		$repeater->add_control( 'mega_promo_link', [ 'label' => esc_html__( 'Promo Bar Link', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::URL, 'default' => [ 'url' => '#' ], 'condition' => [ 'dropdown_type' => 'mega', 'mega_promo_text!' => '' ] ] );
@@ -403,6 +479,193 @@ private function get_post_types() {
 
 		$this->end_controls_section();
 
+		// ── Mega Panel Links Style Section ───────────────────────────────────
+		$this->start_controls_section( 'style_mega_links', [ 'label' => esc_html__( 'Mega Panel Links', 'powerkit-addons-for-elementor' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+
+		$this->add_responsive_control( 'mega_link_alignment', [
+			'label'     => esc_html__( 'Alignment', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::CHOOSE,
+			'options'   => [
+				'flex-start' => [ 'title' => esc_html__( 'Left', 'powerkit-addons-for-elementor' ),   'icon' => 'eicon-text-align-left' ],
+				'center'     => [ 'title' => esc_html__( 'Center', 'powerkit-addons-for-elementor' ), 'icon' => 'eicon-text-align-center' ],
+				'flex-end'   => [ 'title' => esc_html__( 'Right', 'powerkit-addons-for-elementor' ),  'icon' => 'eicon-text-align-right' ],
+			],
+			'default'   => 'flex-start',
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-col-links .pkae-mm-col-link-item' => 'justify-content:{{VALUE}} !important;' ],
+		] );
+
+		$this->add_control( 'mega_link_icon_heading', [ 'label' => esc_html__( 'Icon', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_responsive_control( 'mega_link_icon_size', [
+			'label'      => esc_html__( 'Size', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px' ],
+			'range'      => [ 'px' => [ 'min' => 10, 'max' => 60 ] ],
+			'selectors'  => [
+				'{{WRAPPER}} .pkae-mm-col-link-icon' => 'font-size:{{SIZE}}{{UNIT}}; width:{{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-mm-col-link-icon svg' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-mm-col-link-icon i' => 'font-size:{{SIZE}}{{UNIT}};',
+			],
+		] );
+		$this->add_control( 'mega_link_icon_color', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [
+				'{{WRAPPER}} .pkae-mm-col-link-icon' => 'color:{{VALUE}};',
+				'{{WRAPPER}} .pkae-mm-col-link-icon svg' => 'fill:{{VALUE}};',
+			],
+		] );
+		$this->add_control( 'mega_link_icon_color_hover', [
+			'label'     => esc_html__( 'Hover Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [
+				'{{WRAPPER}} .pkae-mm-col-link-item:hover .pkae-mm-col-link-icon' => 'color:{{VALUE}};',
+				'{{WRAPPER}} .pkae-mm-col-link-item:hover .pkae-mm-col-link-icon svg' => 'fill:{{VALUE}};',
+			],
+		] );
+
+		$this->add_control( 'mega_link_image_heading', [ 'label' => esc_html__( 'Image', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_responsive_control( 'mega_link_image_size', [
+			'label'      => esc_html__( 'Size', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px' ],
+			'range'      => [ 'px' => [ 'min' => 20, 'max' => 100 ] ],
+			'selectors'  => [
+				'{{WRAPPER}} .pkae-mm-col-link-img' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-mm-col-link-img img' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+			],
+		] );
+		$this->add_responsive_control( 'mega_link_image_radius', [
+			'label'      => esc_html__( 'Border Radius', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', '%' ],
+			'selectors'  => [
+				'{{WRAPPER}} .pkae-mm-col-link-img' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-mm-col-link-img img' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+			],
+		] );
+		$this->add_group_control( Group_Control_Border::get_type(), [
+			'name'     => 'mega_link_image_border',
+			'selector' => '{{WRAPPER}} .pkae-mm-col-link-img, {{WRAPPER}} .pkae-mm-col-link-img img',
+		] );
+
+		$this->add_control( 'mega_link_title_heading', [ 'label' => esc_html__( 'Title', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->start_controls_tabs( 'tabs_mega_link_title' );
+		
+		$this->start_controls_tab( 'tab_mega_link_title_normal', [ 'label' => esc_html__( 'Normal', 'powerkit-addons-for-elementor' ) ] );
+		$this->add_control( 'mega_link_title_color', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-col-links a' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_control( 'mega_link_title_bg', [
+			'label'     => esc_html__( 'Background', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-col-link-item' => 'background:{{VALUE}};' ],
+		] );
+		$this->end_controls_tab();
+		
+		$this->start_controls_tab( 'tab_mega_link_title_hover', [ 'label' => esc_html__( 'Hover', 'powerkit-addons-for-elementor' ) ] );
+		$this->add_control( 'mega_link_title_color_hover', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-col-links a:hover' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_control( 'mega_link_title_bg_hover', [
+			'label'     => esc_html__( 'Background', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-col-link-item:hover' => 'background:{{VALUE}};' ],
+		] );
+		$this->end_controls_tab();
+		
+		$this->end_controls_tabs();
+		
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'mega_link_title_typo', 'selector' => '{{WRAPPER}} .pkae-mm-col-links a', 'separator' => 'before' ] );
+		$this->add_responsive_control( 'mega_link_padding', [
+			'label'      => esc_html__( 'Link Padding', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', 'em' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-col-link-item' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
+		] );
+		$this->add_responsive_control( 'mega_link_radius', [
+			'label'      => esc_html__( 'Link Border Radius', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', '%' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-col-link-item' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
+		] );
+		$this->add_responsive_control( 'mega_link_gap', [
+			'label'      => esc_html__( 'Gap Between Items', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px' ],
+			'range'      => [ 'px' => [ 'min' => 0, 'max' => 40 ] ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-col-links' => 'gap:{{SIZE}}{{UNIT}};' ],
+		] );
+
+		$this->end_controls_section();
+
+		// ── Dropdown Indicator Style Section ─────────────────────────────────
+		$this->start_controls_section( 'style_dropdown_indicator', [ 'label' => esc_html__( 'Dropdown Indicator', 'powerkit-addons-for-elementor' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+
+		$this->add_responsive_control( 'indicator_size', [
+			'label'      => esc_html__( 'Size', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px', 'em' ],
+			'range'      => [ 'px' => [ 'min' => 8, 'max' => 40 ] ],
+			'default'    => [ 'size' => 18, 'unit' => 'px' ],
+			'selectors'  => [
+				'{{WRAPPER}} .pkae-mm-indicator' => 'font-size:{{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-mm-indicator svg' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} .pkae-mm-indicator i' => 'font-size:{{SIZE}}{{UNIT}};',
+			],
+		] );
+
+		$this->start_controls_tabs( 'tabs_indicator' );
+		
+		$this->start_controls_tab( 'tab_indicator_normal', [ 'label' => esc_html__( 'Normal', 'powerkit-addons-for-elementor' ) ] );
+		$this->add_control( 'indicator_color', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'default'   => '#000000',
+			'selectors' => [
+				'{{WRAPPER}} .pkae-mm-indicator' => 'color:{{VALUE}};',
+				'{{WRAPPER}} .pkae-mm-indicator svg' => 'fill:{{VALUE}};',
+			],
+		] );
+		$this->end_controls_tab();
+		
+		$this->start_controls_tab( 'tab_indicator_hover', [ 'label' => esc_html__( 'Hover', 'powerkit-addons-for-elementor' ) ] );
+		$this->add_control( 'indicator_color_hover', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [
+				'{{WRAPPER}} .pkae-mm-item:hover .pkae-mm-indicator' => 'color:{{VALUE}};',
+				'{{WRAPPER}} .pkae-mm-item:hover .pkae-mm-indicator svg' => 'fill:{{VALUE}};',
+				'{{WRAPPER}} .pkae-mm-item.pkae-mm-open .pkae-mm-indicator' => 'color:{{VALUE}};',
+				'{{WRAPPER}} .pkae-mm-item.pkae-mm-open .pkae-mm-indicator svg' => 'fill:{{VALUE}};',
+			],
+		] );
+		$this->end_controls_tab();
+		
+		$this->end_controls_tabs();
+
+		$this->add_control( 'indicator_rotate_on_open', [
+			'label'        => esc_html__( 'Rotate on Open', 'powerkit-addons-for-elementor' ),
+			'type'         => Controls_Manager::SWITCHER,
+			'return_value' => 'yes',
+			'default'      => 'yes',
+			'separator'    => 'before',
+		] );
+
+		$this->add_responsive_control( 'indicator_spacing', [
+			'label'      => esc_html__( 'Spacing', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px' ],
+			'range'      => [ 'px' => [ 'min' => 0, 'max' => 30 ] ],
+			'default'    => [ 'size' => 6, 'unit' => 'px' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-indicator' => 'margin-left:{{SIZE}}{{UNIT}};' ],
+		] );
+
+		$this->end_controls_section();
+
 		$this->start_controls_section( 'style_hamburger', [ 'label' => esc_html__( 'Hamburger Button', 'powerkit-addons-for-elementor' ), 'tab' => Controls_Manager::TAB_STYLE ] );
 		$this->add_control( 'hamburger_color', [ 'label' => esc_html__( 'Color', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .pkae-mm-hamburger' => 'color:{{VALUE}};' ] ] );
 		$this->add_control( 'hamburger_bg', [ 'label' => esc_html__( 'Background', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .pkae-mm-hamburger' => 'background:{{VALUE}};' ] ] );
@@ -444,18 +707,34 @@ private function get_post_types() {
 				echo '<div class="pkae-mm-mega-inner">';
 				echo '<div class="pkae-mm-mega-cols" style="--mm-cols:' . esc_attr( $col_count ) . ';">';
 				foreach ( $cols as $col ) {
-					$heading = ! empty( $col['col_heading'] ) ? $col['col_heading'] : '';
-					$raw     = ! empty( $col['col_items'] ) ? $col['col_items'] : '';
+					$heading   = ! empty( $col['col_heading'] ) ? $col['col_heading'] : '';
+					$col_links = ! empty( $col['col_links'] ) ? $col['col_links'] : [];
 					echo '<div class="pkae-mm-mega-col">';
 					if ( $heading ) {
 						echo '<div class="pkae-mm-col-title">' . esc_html( $heading ) . '</div>';
 					}
 					echo '<div class="pkae-mm-col-links">';
-					foreach ( array_filter( array_map( 'trim', explode( "\n", $raw ) ) ) as $line ) {
-						$parts = explode( '|', $line, 2 );
-						$lbl   = trim( $parts[0] );
-						$href  = isset( $parts[1] ) ? trim( $parts[1] ) : '#';
-						echo '<a href="' . esc_url( $href ) . '">' . esc_html( $lbl ) . '</a>';
+					foreach ( $col_links as $link ) {
+						$lbl   = ! empty( $link['link_label'] ) ? $link['link_label'] : '';
+						$url   = ! empty( $link['link_url']['url'] ) ? $link['link_url']['url'] : '#';
+						$ext   = ! empty( $link['link_url']['is_external'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
+						$icon  = ! empty( $link['link_icon']['value'] ) ? $link['link_icon'] : false;
+						$img   = ! empty( $link['link_image']['url'] ) ? $link['link_image']['url'] : '';
+						
+						echo '<a href="' . esc_url( $url ) . '"' . $ext . ' class="pkae-mm-col-link-item">';
+						if ( $img ) {
+							// phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
+							echo '<span class="pkae-mm-col-link-img"><img src="' . esc_url( $img ) . '" alt="' . esc_attr( $lbl ) . '" loading="lazy"></span>';
+						}
+						if ( $icon ) {
+							echo '<span class="pkae-mm-col-link-icon">';
+							Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] );
+							echo '</span>';
+						}
+						if ( $lbl ) {
+							echo '<span class="pkae-mm-col-link-label">' . esc_html( $lbl ) . '</span>';
+						}
+						echo '</a>';
 					}
 					echo '</div></div>';
 				}
@@ -668,6 +947,26 @@ private function get_post_types() {
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-products-panel { padding: 12px 16px !important; width: 100% !important; max-width: 100% !important; overflow: hidden !important; }
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-simple-list,
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-wp-wrap { width: 100% !important; max-width: 100% !important; overflow: hidden !important; }
+
+			/* Vertical layout: accordion style on mobile */
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-vertical .pkae-mm-dropdown {
+				position: static !important;
+				transform: none !important;
+				left: 0 !important;
+				top: auto !important;
+				width: 100% !important;
+				min-width: unset !important;
+				border-radius: 0 !important;
+				display: none !important;
+				opacity: 1 !important;
+				visibility: visible !important;
+			}
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-vertical .pkae-mm-item.pkae-mm-open > .pkae-mm-dropdown {
+				display: block !important;
+			}
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-vertical .pkae-mm-nav > .pkae-mm-item {
+				border-bottom: 1px solid #f0f0f0 !important;
+			}
 		}
 		@media (max-width: 480px) {
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-products-grid { grid-template-columns: 1fr !important; }
@@ -676,6 +975,7 @@ private function get_post_types() {
 		<div class="pkae-mm-wrap pkae-mm-<?php echo esc_attr( $layout ); ?> pkae-mm-anim-<?php echo esc_attr( $animation ); ?>"
 			data-pkae-trigger="<?php echo esc_attr( $trigger ); ?>"
 			data-pkae-bp="<?php echo esc_attr( $bp ); ?>"
+			data-indicator-rotate="<?php echo esc_attr( $s['indicator_rotate_on_open'] === 'yes' ? 'yes' : 'no' ); ?>"
 			role="navigation" aria-label="<?php esc_attr_e( 'Main Navigation', 'powerkit-addons-for-elementor' ); ?>">
 
 		<?php if ( $is_vert ) : ?>
@@ -684,7 +984,6 @@ private function get_post_types() {
 			aria-controls="pkae-mm-nav-<?php echo esc_attr( $wid ); ?>">
 			<span class="pkae-mm-cat-icon" aria-hidden="true">&#9776;</span>
 			<span class="pkae-mm-cat-label"><?php echo esc_html( $cat_label ); ?></span>
-			<span class="pkae-mm-cat-arrow" aria-hidden="true">&#8964;</span>
 		</button>
 		<?php endif; ?>
 
@@ -693,7 +992,24 @@ private function get_post_types() {
 			aria-label="<?php esc_attr_e( 'Toggle Menu', 'powerkit-addons-for-elementor' ); ?>"
 			aria-expanded="false"
 			aria-controls="pkae-mm-nav-<?php echo esc_attr( $wid ); ?>">
-			<span></span><span></span><span></span>
+			<span class="pkae-mm-hamburger-open">
+				<?php
+				if ( ! empty( $s['hamburger_open_icon']['value'] ) ) {
+					Icons_Manager::render_icon( $s['hamburger_open_icon'], [ 'aria-hidden' => 'true' ] );
+				} else {
+					echo '<span></span><span></span><span></span>';
+				}
+				?>
+			</span>
+			<span class="pkae-mm-hamburger-close">
+				<?php
+				if ( ! empty( $s['hamburger_close_icon']['value'] ) ) {
+					Icons_Manager::render_icon( $s['hamburger_close_icon'], [ 'aria-hidden' => 'true' ] );
+				} else {
+					echo '<span></span><span></span><span></span>';
+				}
+				?>
+			</span>
 		</button>
 		<?php endif; ?>
 
@@ -722,7 +1038,17 @@ private function get_post_types() {
 				<?php if ( $badge && 'inline' === $badge_pos ) : ?>
 				<span class="pkae-mm-badge"><?php echo esc_html( $badge ); ?></span>
 				<?php endif; ?>
-				<?php if ( $has_drop ) : ?><span class="pkae-mm-caret" aria-hidden="true">&#8964;</span><?php endif; ?>
+				<?php if ( $has_drop ) : ?>
+					<span class="pkae-mm-indicator" aria-hidden="true">
+						<?php
+						if ( ! empty( $s['dropdown_indicator_icon']['value'] ) ) {
+							Icons_Manager::render_icon( $s['dropdown_indicator_icon'], [ 'aria-hidden' => 'true' ] );
+						} else {
+							echo '&#8964;';
+						}
+						?>
+					</span>
+				<?php endif; ?>
 			</a>
 			<?php if ( $has_drop ) : ?>
 			<div class="pkae-mm-dropdown<?php echo 'mega' === $type ? ' pkae-mm-mega' : ''; ?>" role="region">
@@ -798,9 +1124,23 @@ private function get_post_types() {
 						link.addEventListener('click', toggle);
 					} else {
 						var t;
-						item.addEventListener('mouseenter', function(){ if(isMob()) return; clearTimeout(t); open(); });
-						item.addEventListener('mouseleave', function(){ if(isMob()) return; t = setTimeout(close, 150); });
-						link.addEventListener('click', function(e){ if(!isMob()) return; toggle(e); });
+						// Hover mode
+						item.addEventListener('mouseenter', function(){
+							// Horizontal on mobile: skip hover
+							if(isMob() && !isVert) return;
+							clearTimeout(t);
+							open();
+						});
+						item.addEventListener('mouseleave', function(){
+							// Horizontal on mobile: skip hover
+							if(isMob() && !isVert) return;
+							t = setTimeout(close, 150);
+						});
+						// Mobile horizontal: click to toggle
+						link.addEventListener('click', function(e){
+							if(!isMob() || isVert) return;
+							toggle(e);
+						});
 					}
 				});
 

@@ -40,13 +40,23 @@
   transition: color .22s, background .22s;
 }
 
-/* caret */
-.pkae-mm-link .pkae-mm-caret {
-  font-size: 10px; margin-left: 2px;
-  transition: transform .22s; display: inline-flex;
+/* indicator */
+.pkae-mm-link .pkae-mm-indicator {
+  font-size: 18px; margin-left: 6px;
+  color: #000;
+  transition: transform .22s, color .22s; 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.pkae-mm-item.pkae-mm-open > .pkae-mm-link .pkae-mm-caret,
-.pkae-mm-item:hover > .pkae-mm-link .pkae-mm-caret {
+.pkae-mm-link .pkae-mm-indicator svg {
+  fill: #000;
+  transition: fill .22s;
+}
+
+/* Rotation when enabled via Elementor control */
+.pkae-mm-wrap[data-indicator-rotate="yes"] .pkae-mm-item.pkae-mm-open > .pkae-mm-link .pkae-mm-indicator,
+.pkae-mm-wrap[data-indicator-rotate="yes"] .pkae-mm-item:hover > .pkae-mm-link .pkae-mm-indicator {
   transform: rotate(180deg);
 }
 
@@ -135,9 +145,15 @@
 .pkae-mm-col-links a {
   display: block; padding: 6px 0;
   font-size: 13px; color: #444;
-  transition: color .18s, padding-left .18s;
+  transition: color .18s;
 }
-.pkae-mm-col-links a:hover { color: #f0a500; padding-left: 4px; }
+.pkae-mm-col-links a:hover { color: #f0a500; }
+.pkae-mm-col-link-item { display: flex; align-items: center; gap: 8px; }
+.pkae-mm-col-link-img { flex-shrink: 0; width: 32px; height: 32px; border-radius: 4px; overflow: hidden; }
+.pkae-mm-col-link-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pkae-mm-col-link-icon { flex-shrink: 0; width: 16px; text-align: center; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+.pkae-mm-col-link-icon svg { width: 1em; height: 1em; }
+.pkae-mm-col-link-label { flex: 1; }
 
 /* mega image */
 .pkae-mm-mega-image {
@@ -235,8 +251,6 @@
 .pkae-mm-cat-header:hover { background: #e09500; }
 .pkae-mm-cat-header .pkae-mm-cat-icon { font-size: 18px; line-height: 1; }
 .pkae-mm-cat-header .pkae-mm-cat-label { flex: 1; font-weight: 600; text-align: left; }
-.pkae-mm-cat-header .pkae-mm-cat-arrow { font-size: 14px; transition: transform .25s; line-height: 1; }
-.pkae-mm-cat-header.pkae-mm-cat-open .pkae-mm-cat-arrow { transform: rotate(180deg); }
 
 /* Vertical nav list */
 .pkae-mm-vertical .pkae-mm-nav {
@@ -271,7 +285,7 @@
 }
 .pkae-mm-vertical .pkae-mm-nav > .pkae-mm-item > .pkae-mm-link .pkae-mm-item-icon { flex-shrink: 0; width: 20px; text-align: center; }
 .pkae-mm-vertical .pkae-mm-nav > .pkae-mm-item > .pkae-mm-link .pkae-mm-label { flex: 1; }
-.pkae-mm-vertical .pkae-mm-nav > .pkae-mm-item > .pkae-mm-link .pkae-mm-caret { font-size: 11px; margin-left: auto; }
+.pkae-mm-vertical .pkae-mm-nav > .pkae-mm-item > .pkae-mm-link .pkae-mm-indicator { font-size: 11px; margin-left: auto; }
 .pkae-mm-vertical .pkae-mm-nav > .pkae-mm-item > .pkae-mm-link::after { display: none !important; }
 
 /* Vertical dropdown: opens to the right */
@@ -282,6 +296,7 @@
   min-width: 560px;
   max-height: 80vh;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .pkae-mm-vertical .pkae-mm-item:hover > .pkae-mm-dropdown,
 .pkae-mm-vertical .pkae-mm-item.pkae-mm-open > .pkae-mm-dropdown {
@@ -296,19 +311,63 @@
    ═══════════════════════════════════════════════════════════ */
 /* JS controls display via inline style — default none */
 .pkae-mm-hamburger {
-  display: none; flex-direction: column; gap: 5px;
+  display: none; 
   align-items: center; justify-content: center;
   width: 40px; height: 40px; background: transparent;
   border: none; cursor: pointer; padding: 6px; flex-shrink: 0;
   color: #333;
+  position: relative;
 }
-.pkae-mm-hamburger span {
+
+/* Icon containers */
+.pkae-mm-hamburger-open,
+.pkae-mm-hamburger-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .28s, transform .28s;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Default state: show open icon, hide close icon */
+.pkae-mm-hamburger-open {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.pkae-mm-hamburger-close {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* Active state: hide open icon, show close icon */
+.pkae-mm-hamburger.is-active .pkae-mm-hamburger-open {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+.pkae-mm-hamburger.is-active .pkae-mm-hamburger-close {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Icon sizing */
+.pkae-mm-hamburger-open svg,
+.pkae-mm-hamburger-close svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* Fallback for default bars (3 spans) */
+.pkae-mm-hamburger-open span span,
+.pkae-mm-hamburger-close span span {
   display: block; width: 22px; height: 2px;
-  background: currentColor; transition: transform .28s, opacity .28s;
+  background: currentColor; 
+  margin: 3px 0;
 }
-.pkae-mm-hamburger.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.pkae-mm-hamburger.is-active span:nth-child(2) { opacity: 0; }
-.pkae-mm-hamburger.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ═══════════════════════════════════════════════════════════
    ANIMATION VARIANTS
