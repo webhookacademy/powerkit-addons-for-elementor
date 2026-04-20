@@ -47,6 +47,41 @@ private function get_post_types() {
 	protected function register_controls() {
 		$this->start_controls_section( 'section_layout', [ 'label' => esc_html__( 'Layout', 'powerkit-addons-for-elementor' ), 'tab' => Controls_Manager::TAB_CONTENT ] );
 		$this->add_control( 'menu_layout', [ 'label' => esc_html__( 'Orientation', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::CHOOSE, 'options' => [ 'horizontal' => [ 'title' => esc_html__( 'Horizontal', 'powerkit-addons-for-elementor' ), 'icon' => 'eicon-navigation-horizontal' ], 'vertical' => [ 'title' => esc_html__( 'Vertical', 'powerkit-addons-for-elementor' ), 'icon' => 'eicon-navigation-vertical' ] ], 'default' => 'horizontal', 'toggle' => false ] );
+		$this->add_responsive_control( 'nav_alignment', [
+			'label'     => esc_html__( 'Alignment', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::CHOOSE,
+			'options'   => [
+				'flex-start' => [ 'title' => esc_html__( 'Left', 'powerkit-addons-for-elementor' ),   'icon' => 'eicon-text-align-left' ],
+				'center'     => [ 'title' => esc_html__( 'Center', 'powerkit-addons-for-elementor' ), 'icon' => 'eicon-text-align-center' ],
+				'flex-end'   => [ 'title' => esc_html__( 'Right', 'powerkit-addons-for-elementor' ),  'icon' => 'eicon-text-align-right' ],
+			],
+			'default'   => 'flex-start',
+			'toggle'    => false,
+			'condition' => [ 'menu_layout' => 'horizontal' ],
+			'selectors' => [
+				'{{WRAPPER}} .pkae-mm-horizontal .pkae-mm-nav' => 'justify-content:{{VALUE}};',
+			],
+		] );
+		$this->add_responsive_control( 'dropdown_alignment', [
+			'label'     => esc_html__( 'Dropdown Alignment', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::CHOOSE,
+			'options'   => [
+				'left'   => [ 'title' => esc_html__( 'Left', 'powerkit-addons-for-elementor' ),   'icon' => 'eicon-h-align-right' ],
+				'center' => [ 'title' => esc_html__( 'Center', 'powerkit-addons-for-elementor' ), 'icon' => 'eicon-h-align-center' ],
+				'right'  => [ 'title' => esc_html__( 'Right', 'powerkit-addons-for-elementor' ),  'icon' => 'eicon-h-align-left' ],
+			],
+			'default'   => 'left',
+			'toggle'    => false,
+			'condition' => [ 'menu_layout' => 'horizontal' ],
+			'selectors_dictionary' => [
+				'left'   => 'left:0; right:auto;',
+				'center' => 'left:50%; right:auto; transform:translateX(-50%) translateY(8px);',
+				'right'  => 'left:auto; right:0;',
+			],
+			'selectors' => [
+				'(desktop){{WRAPPER}} .pkae-mm-horizontal .pkae-mm-item:not(.pkae-mm-mega-item) > .pkae-mm-dropdown' => '{{VALUE}}',
+			],
+		] );
 		$this->add_control( 'dropdown_trigger', [ 'label' => esc_html__( 'Dropdown Trigger', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::SELECT, 'options' => [ 'hover' => esc_html__( 'Hover', 'powerkit-addons-for-elementor' ), 'click' => esc_html__( 'Click', 'powerkit-addons-for-elementor' ) ], 'default' => 'hover' ] );
 		$this->add_control( 'dropdown_animation', [ 'label' => esc_html__( 'Dropdown Animation', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::SELECT, 'options' => [ 'slide' => esc_html__( 'Slide', 'powerkit-addons-for-elementor' ), 'fade' => esc_html__( 'Fade', 'powerkit-addons-for-elementor' ), 'zoom' => esc_html__( 'Zoom', 'powerkit-addons-for-elementor' ) ], 'default' => 'slide' ] );
 		$this->add_control( 'mobile_heading', [ 'label' => esc_html__( 'Mobile Settings', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
@@ -178,6 +213,196 @@ private function get_post_types() {
 		$this->add_responsive_control( 'sub_link_padding', [ 'label' => esc_html__( 'Link Padding', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::DIMENSIONS, 'size_units' => [ 'px', 'em' ], 'separator' => 'before', 'selectors' => [ '{{WRAPPER}} .pkae-mm-simple-list li a, {{WRAPPER}} .pkae-mm-col-links a, {{WRAPPER}} .pkae-mm-wp-wrap ul li a' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ] ] );
 		$this->add_responsive_control( 'sub_font_size', [ 'label' => esc_html__( 'Font Size', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::SLIDER, 'size_units' => [ 'px', 'em', 'rem' ], 'range' => [ 'px' => [ 'min' => 10, 'max' => 30 ] ], 'selectors' => [ '{{WRAPPER}} .pkae-mm-simple-list a, {{WRAPPER}} .pkae-mm-col-links a, {{WRAPPER}} .pkae-mm-wp-wrap a' => 'font-size:{{SIZE}}{{UNIT}};' ] ] );
 		$this->end_controls_section();
+		// ── Posts Style Section ──────────────────────────────────────────────
+		$this->start_controls_section( 'style_posts', [ 'label' => esc_html__( 'Posts Dropdown', 'powerkit-addons-for-elementor' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+
+		$this->add_control( 'posts_show_image_global', [
+			'label'        => esc_html__( 'Show Image', 'powerkit-addons-for-elementor' ),
+			'type'         => Controls_Manager::SWITCHER,
+			'return_value' => 'yes',
+			'default'      => 'yes',
+		] );
+		$this->add_control( 'posts_show_title_global', [
+			'label'        => esc_html__( 'Show Title', 'powerkit-addons-for-elementor' ),
+			'type'         => Controls_Manager::SWITCHER,
+			'return_value' => 'yes',
+			'default'      => 'yes',
+		] );
+		$this->add_control( 'posts_show_date_global', [
+			'label'        => esc_html__( 'Show Date', 'powerkit-addons-for-elementor' ),
+			'type'         => Controls_Manager::SWITCHER,
+			'return_value' => 'yes',
+			'default'      => 'yes',
+		] );
+
+		$this->add_control( 'posts_style_image_heading', [ 'label' => esc_html__( 'Image', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_responsive_control( 'posts_image_border_radius', [
+			'label'      => esc_html__( 'Border Radius', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', '%' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-post-thumb' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
+		] );
+		$this->add_responsive_control( 'posts_image_height', [
+			'label'      => esc_html__( 'Image Height', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px', 'em' ],
+			'range'      => [ 'px' => [ 'min' => 40, 'max' => 300 ] ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-post-thumb' => 'height:{{SIZE}}{{UNIT}}; aspect-ratio:unset;' ],
+		] );
+		$this->add_group_control( Group_Control_Border::get_type(), [
+			'name'     => 'posts_image_border',
+			'selector' => '{{WRAPPER}} .pkae-mm-post-thumb',
+		] );
+
+		$this->add_control( 'posts_style_title_heading', [ 'label' => esc_html__( 'Title', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_control( 'posts_title_color', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-post-title' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_control( 'posts_title_color_hover', [
+			'label'     => esc_html__( 'Hover Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-post-card a:hover .pkae-mm-post-title' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'posts_title_typo', 'selector' => '{{WRAPPER}} .pkae-mm-post-title' ] );
+
+		$this->add_control( 'posts_style_date_heading', [ 'label' => esc_html__( 'Date', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_control( 'posts_date_color', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-post-meta' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'posts_date_typo', 'selector' => '{{WRAPPER}} .pkae-mm-post-meta' ] );
+
+		$this->add_control( 'posts_style_card_heading', [ 'label' => esc_html__( 'Card', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_control( 'posts_card_bg', [
+			'label'     => esc_html__( 'Card Background', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-post-card' => 'background:{{VALUE}};' ],
+		] );
+		$this->add_responsive_control( 'posts_card_padding', [
+			'label'      => esc_html__( 'Card Padding', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', 'em' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-post-card' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
+		] );
+		$this->add_responsive_control( 'posts_card_radius', [
+			'label'      => esc_html__( 'Card Border Radius', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', '%' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-post-card' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
+		] );
+		$this->add_responsive_control( 'posts_panel_gap', [
+			'label'      => esc_html__( 'Cards Gap', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px' ],
+			'range'      => [ 'px' => [ 'min' => 0, 'max' => 60 ] ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-posts-grid' => 'gap:{{SIZE}}{{UNIT}};' ],
+		] );
+
+		$this->end_controls_section();
+
+		// ── Products Style Section ───────────────────────────────────────────
+		$this->start_controls_section( 'style_products', [ 'label' => esc_html__( 'Products Dropdown', 'powerkit-addons-for-elementor' ), 'tab' => Controls_Manager::TAB_STYLE ] );
+
+		$this->add_control( 'products_show_image_global', [
+			'label'        => esc_html__( 'Show Image', 'powerkit-addons-for-elementor' ),
+			'type'         => Controls_Manager::SWITCHER,
+			'return_value' => 'yes',
+			'default'      => 'yes',
+		] );
+		$this->add_control( 'products_show_title_global', [
+			'label'        => esc_html__( 'Show Title', 'powerkit-addons-for-elementor' ),
+			'type'         => Controls_Manager::SWITCHER,
+			'return_value' => 'yes',
+			'default'      => 'yes',
+		] );
+		$this->add_control( 'products_show_price_global', [
+			'label'        => esc_html__( 'Show Price', 'powerkit-addons-for-elementor' ),
+			'type'         => Controls_Manager::SWITCHER,
+			'return_value' => 'yes',
+			'default'      => 'yes',
+		] );
+
+		$this->add_control( 'products_style_image_heading', [ 'label' => esc_html__( 'Image', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_responsive_control( 'products_image_border_radius', [
+			'label'      => esc_html__( 'Border Radius', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', '%' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-product-thumb' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
+		] );
+		$this->add_responsive_control( 'products_image_height', [
+			'label'      => esc_html__( 'Image Height', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px', 'em' ],
+			'range'      => [ 'px' => [ 'min' => 40, 'max' => 400 ] ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-product-thumb' => 'height:{{SIZE}}{{UNIT}}; aspect-ratio:unset;' ],
+		] );
+		$this->add_group_control( Group_Control_Border::get_type(), [
+			'name'     => 'products_image_border',
+			'selector' => '{{WRAPPER}} .pkae-mm-product-thumb',
+		] );
+
+		$this->add_control( 'products_style_title_heading', [ 'label' => esc_html__( 'Title', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_control( 'products_title_color', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-product-title' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_control( 'products_title_color_hover', [
+			'label'     => esc_html__( 'Hover Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-product-card a:hover .pkae-mm-product-title' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'products_title_typo', 'selector' => '{{WRAPPER}} .pkae-mm-product-title' ] );
+
+		$this->add_control( 'products_style_price_heading', [ 'label' => esc_html__( 'Price', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_control( 'products_price_color', [
+			'label'     => esc_html__( 'Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-product-price' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_control( 'products_price_sale_color', [
+			'label'     => esc_html__( 'Sale Price Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-product-price ins' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_control( 'products_price_old_color', [
+			'label'     => esc_html__( 'Old Price Color', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-product-price del' => 'color:{{VALUE}};' ],
+		] );
+		$this->add_group_control( Group_Control_Typography::get_type(), [ 'name' => 'products_price_typo', 'selector' => '{{WRAPPER}} .pkae-mm-product-price' ] );
+
+		$this->add_control( 'products_style_card_heading', [ 'label' => esc_html__( 'Card', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ] );
+		$this->add_control( 'products_card_bg', [
+			'label'     => esc_html__( 'Card Background', 'powerkit-addons-for-elementor' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => [ '{{WRAPPER}} .pkae-mm-product-card' => 'background:{{VALUE}};' ],
+		] );
+		$this->add_responsive_control( 'products_card_padding', [
+			'label'      => esc_html__( 'Card Padding', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', 'em' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-product-card' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
+		] );
+		$this->add_responsive_control( 'products_card_radius', [
+			'label'      => esc_html__( 'Card Border Radius', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::DIMENSIONS,
+			'size_units' => [ 'px', '%' ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-product-card' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ],
+		] );
+		$this->add_responsive_control( 'products_panel_gap', [
+			'label'      => esc_html__( 'Cards Gap', 'powerkit-addons-for-elementor' ),
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => [ 'px' ],
+			'range'      => [ 'px' => [ 'min' => 0, 'max' => 60 ] ],
+			'selectors'  => [ '{{WRAPPER}} .pkae-mm-products-grid' => 'gap:{{SIZE}}{{UNIT}};' ],
+		] );
+
+		$this->end_controls_section();
+
 		$this->start_controls_section( 'style_hamburger', [ 'label' => esc_html__( 'Hamburger Button', 'powerkit-addons-for-elementor' ), 'tab' => Controls_Manager::TAB_STYLE ] );
 		$this->add_control( 'hamburger_color', [ 'label' => esc_html__( 'Color', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .pkae-mm-hamburger' => 'color:{{VALUE}};' ] ] );
 		$this->add_control( 'hamburger_bg', [ 'label' => esc_html__( 'Background', 'powerkit-addons-for-elementor' ), 'type' => Controls_Manager::COLOR, 'selectors' => [ '{{WRAPPER}} .pkae-mm-hamburger' => 'background:{{VALUE}};' ] ] );
@@ -187,7 +412,7 @@ private function get_post_types() {
 		$this->end_controls_section();
 	}
 
-	protected function render_dropdown( $item, $type ) {
+	protected function render_dropdown( $item, $type, $s = [] ) {
 		switch ( $type ) {
 			case 'simple':
 				$subs = ! empty( $item['sub_items'] ) ? $item['sub_items'] : [];
@@ -258,7 +483,10 @@ private function get_post_types() {
 				$post_type  = ! empty( $item['posts_post_type'] ) ? $item['posts_post_type'] : 'post';
 				$count      = ! empty( $item['posts_count'] ) ? (int) $item['posts_count'] : 3;
 				$columns    = ! empty( $item['posts_columns'] ) ? (int) $item['posts_columns'] : 3;
-				$show_thumb = ! empty( $item['posts_show_thumb'] ) && 'yes' === $item['posts_show_thumb'];
+				// Global show/hide overrides (from Style tab), fallback to per-item setting
+				$show_thumb = isset( $s['posts_show_image_global'] ) ? 'yes' === $s['posts_show_image_global'] : ( ! empty( $item['posts_show_thumb'] ) && 'yes' === $item['posts_show_thumb'] );
+				$show_title = ! isset( $s['posts_show_title_global'] ) || 'yes' === $s['posts_show_title_global'];
+				$show_date  = isset( $s['posts_show_date_global'] ) ? 'yes' === $s['posts_show_date_global'] : ( ! empty( $item['posts_show_date'] ) && 'yes' === $item['posts_show_date'] );
 				$q = new \WP_Query( [ 'post_type' => $post_type, 'posts_per_page' => $count, 'post_status' => 'publish', 'no_found_rows' => true ] );
 				if ( $q->have_posts() ) {
 					echo '<div class="pkae-mm-posts-panel"><div class="pkae-mm-posts-grid" style="--mm-post-cols:' . esc_attr( $columns ) . ';">';
@@ -270,8 +498,11 @@ private function get_post_types() {
 							// phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 							echo '<img class="pkae-mm-post-thumb" src="' . esc_url( $thumb ) . '" alt="' . esc_attr( get_the_title() ) . '" loading="lazy">';
 						}
-						echo '<span class="pkae-mm-post-title">' . esc_html( get_the_title() ) . '</span></a>';
-						if ( ! empty( $item['posts_show_date'] ) && 'yes' === $item['posts_show_date'] ) {
+						if ( $show_title ) {
+							echo '<span class="pkae-mm-post-title">' . esc_html( get_the_title() ) . '</span>';
+						}
+						echo '</a>';
+						if ( $show_date ) {
 							echo '<span class="pkae-mm-post-meta">' . esc_html( get_the_date() ) . '</span>';
 						}
 						echo '</div>';
@@ -290,6 +521,10 @@ private function get_post_types() {
 				$columns = ! empty( $item['products_columns'] ) ? (int) $item['products_columns'] : 4;
 				$orderby = ! empty( $item['products_orderby'] ) ? $item['products_orderby'] : 'date';
 				$feat    = ! empty( $item['products_featured'] ) && 'yes' === $item['products_featured'];
+				// Global show/hide overrides (from Style tab)
+				$show_image = ! isset( $s['products_show_image_global'] ) || 'yes' === $s['products_show_image_global'];
+				$show_title = ! isset( $s['products_show_title_global'] ) || 'yes' === $s['products_show_title_global'];
+				$show_price = isset( $s['products_show_price_global'] ) ? 'yes' === $s['products_show_price_global'] : ( ! isset( $item['products_show_price'] ) || 'yes' === $item['products_show_price'] );
 				$ord_map = [
 					'date'       => [ 'orderby' => 'date',            'order' => 'DESC', 'meta_key' => '' ],
 					'popularity' => [ 'orderby' => 'meta_value_num',  'order' => 'DESC', 'meta_key' => 'total_sales' ],
@@ -306,16 +541,19 @@ private function get_post_types() {
 					while ( $q->have_posts() ) {
 						$q->the_post();
 						global $product;
-						$product   = wc_get_product( get_the_ID() );
-						$thumb     = get_the_post_thumbnail_url( null, 'woocommerce_thumbnail' );
+						$product    = wc_get_product( get_the_ID() );
+						$thumb      = get_the_post_thumbnail_url( null, 'woocommerce_thumbnail' );
 						$price_html = $product ? $product->get_price_html() : '';
 						echo '<div class="pkae-mm-product-card"><a href="' . esc_url( get_permalink() ) . '">';
-						if ( $thumb ) {
+						if ( $show_image && $thumb ) {
 							// phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 							echo '<img class="pkae-mm-product-thumb" src="' . esc_url( $thumb ) . '" alt="' . esc_attr( get_the_title() ) . '" loading="lazy">';
 						}
-						echo '<span class="pkae-mm-product-title">' . esc_html( get_the_title() ) . '</span></a>';
-						if ( $price_html && ( ! isset( $item['products_show_price'] ) || 'yes' === $item['products_show_price'] ) ) {
+						if ( $show_title ) {
+							echo '<span class="pkae-mm-product-title">' . esc_html( get_the_title() ) . '</span>';
+						}
+						echo '</a>';
+						if ( $show_price && $price_html ) {
 							echo '<span class="pkae-mm-product-price">' . wp_kses_post( $price_html ) . '</span>';
 						}
 						echo '</div>';
@@ -389,7 +627,8 @@ private function get_post_types() {
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-horizontal .pkae-mm-nav > .pkae-mm-item > .pkae-mm-link::after { display: none !important; }
 
 			/* Dropdown: static/inline accordion — appears right below its item */
-			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-dropdown {
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-horizontal .pkae-mm-dropdown,
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-horizontal .pkae-mm-item:not(.pkae-mm-mega-item) > .pkae-mm-dropdown {
 				position: static !important;
 				transform: none !important;
 				opacity: 0 !important;
@@ -404,9 +643,12 @@ private function get_post_types() {
 				border-top: 1px solid #f0f0f0 !important;
 				border-radius: 0 !important;
 				pointer-events: auto !important;
+				left: 0 !important;
+				right: auto !important;
 				/* NO background override — let Elementor style control apply */
 			}
-			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-item.pkae-mm-open > .pkae-mm-dropdown {
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-item.pkae-mm-open > .pkae-mm-dropdown,
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-horizontal .pkae-mm-item.pkae-mm-open > .pkae-mm-dropdown {
 				display: block !important;
 				opacity: 1 !important;
 				visibility: visible !important;
@@ -423,7 +665,9 @@ private function get_post_types() {
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-posts-grid { grid-template-columns: 1fr !important; padding: 12px 16px !important; }
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-products-grid { grid-template-columns: 1fr 1fr !important; padding: 12px 16px !important; }
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-posts-panel,
-			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-products-panel { padding: 12px 16px !important; }
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-products-panel { padding: 12px 16px !important; width: 100% !important; max-width: 100% !important; overflow: hidden !important; }
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-simple-list,
+			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-wp-wrap { width: 100% !important; max-width: 100% !important; overflow: hidden !important; }
 		}
 		@media (max-width: 480px) {
 			.elementor-element-<?php echo esc_attr( $wid ); ?> .pkae-mm-products-grid { grid-template-columns: 1fr !important; }
@@ -482,7 +726,7 @@ private function get_post_types() {
 			</a>
 			<?php if ( $has_drop ) : ?>
 			<div class="pkae-mm-dropdown<?php echo 'mega' === $type ? ' pkae-mm-mega' : ''; ?>" role="region">
-				<?php $this->render_dropdown( $item, $type ); ?>
+				<?php $this->render_dropdown( $item, $type, $s ); ?>
 			</div>
 			<?php endif; ?>
 		</li>
