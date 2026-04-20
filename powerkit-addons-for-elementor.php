@@ -70,6 +70,7 @@ final class PKAE_Elementor_PowerKit_Addons {
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'plugin_css' ) );
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'pkae_editor_panel_css' ) );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'plugin_css' ) );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'pkae_preview_assets' ) );
 
 		add_action( 'elementor/editor/footer', array( $this, 'plugin_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
@@ -136,6 +137,17 @@ final class PKAE_Elementor_PowerKit_Addons {
 		ob_end_flush();
 	}
 
+	public function pkae_preview_assets() {
+		$js_path  = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/widgets/mega-menu/assets/js/pkae-mega-menu.js';
+		$css_path = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/widgets/mega-menu/assets/css/pkae-mega-menu.css';
+		if ( file_exists( $js_path ) ) {
+			wp_enqueue_script( 'pkae-mega-menu', PKAE_ELEMENTOR_POWERKIT_ADDONS_URL . 'includes/widgets/mega-menu/assets/js/pkae-mega-menu.js', [], filemtime( $js_path ), true );
+		}
+		if ( file_exists( $css_path ) ) {
+			wp_enqueue_style( 'pkae-mega-menu', PKAE_ELEMENTOR_POWERKIT_ADDONS_URL . 'includes/widgets/mega-menu/assets/css/pkae-mega-menu.css', [], filemtime( $css_path ) );
+		}
+	}
+
 	public function plugin_css() {
 		wp_enqueue_style(
 			'powerkit-addons-for-elementor',
@@ -173,6 +185,30 @@ final class PKAE_Elementor_PowerKit_Addons {
 			'window.pkaeSearchData = ' . wp_json_encode( $search_data ) . ';',
 			'after'
 		);
+
+		// Force-enqueue mega menu assets — deregister first to avoid conflict
+		// with widget constructor's wp_register_script (different URL base)
+		$js_path  = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/widgets/mega-menu/assets/js/pkae-mega-menu.js';
+		$css_path = PKAE_ELEMENTOR_POWERKIT_ADDONS_PATH . 'includes/widgets/mega-menu/assets/css/pkae-mega-menu.css';
+		if ( file_exists( $js_path ) ) {
+			wp_deregister_script( 'pkae-mega-menu' );
+			wp_enqueue_script(
+				'pkae-mega-menu',
+				PKAE_ELEMENTOR_POWERKIT_ADDONS_URL . 'includes/widgets/mega-menu/assets/js/pkae-mega-menu.js',
+				[],
+				filemtime( $js_path ),
+				true
+			);
+		}
+		if ( file_exists( $css_path ) ) {
+			wp_deregister_style( 'pkae-mega-menu' );
+			wp_enqueue_style(
+				'pkae-mega-menu',
+				PKAE_ELEMENTOR_POWERKIT_ADDONS_URL . 'includes/widgets/mega-menu/assets/css/pkae-mega-menu.css',
+				[],
+				filemtime( $css_path )
+			);
+		}
 	}
 
 	public function pkae_editor_panel_css() {
